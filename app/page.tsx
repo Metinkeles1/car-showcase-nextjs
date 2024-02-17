@@ -79,8 +79,8 @@ export default function Home({ searchParams }: HomeProps) {
             {loading && (
               <div className='mt-16 w-full flex-center'>
                 <Image
-                  src='/loader.svg'
-                  alt='loader'
+                  src='/loading.svg'
+                  alt='loading'
                   width={50}
                   height={50}
                   className='object-contain'
