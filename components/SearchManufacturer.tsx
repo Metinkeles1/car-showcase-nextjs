@@ -32,15 +32,15 @@ const SearchManufacturer = ({
               width={20}
               height={20}
               className='ml-4'
-              alt='Car Logo'
+              alt='car logo'
             />
           </Combobox.Button>
 
           <Combobox.Input
             className='search-manufacturer__input'
-            placeholder='Volkswagen'
-            displayValue={(manufacturer: string) => manufacturer}
-            onChange={(e) => setQuery(e.target.value)}
+            displayValue={(item: string) => item}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder='Volkswagen...'
           />
 
           <Transition
@@ -55,9 +55,12 @@ const SearchManufacturer = ({
               static
             >
               {filteredManufacturers.length === 0 && query !== "" ? (
-                <div className=' search-manufacturer__option'>
-                  Nothing Found
-                </div>
+                <Combobox.Option
+                  value={query}
+                  className='search-manufacturer__option'
+                >
+                  Create "{query}"
+                </Combobox.Option>
               ) : (
                 filteredManufacturers.map((item) => (
                   <Combobox.Option
@@ -79,7 +82,6 @@ const SearchManufacturer = ({
                           {item}
                         </span>
 
-                        {/* Show an active blue background color if the option is selected */}
                         {selected ? (
                           <span
                             className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
