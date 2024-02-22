@@ -2,7 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Hero, SearchBar, CustomFilter, CarCard, ShowMore } from "@/components";
+import {
+  Hero,
+  SearchBar,
+  CustomFilter,
+  CarCard,
+  ShowMore,
+  About,
+} from "@/components";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
 
@@ -101,6 +108,8 @@ export default function Home({ searchParams }: HomeProps) {
           </div>
         )}
       </div>
+
+      <About />
     </main>
   );
 }
