@@ -217,3 +217,26 @@
   @apply cursor-default select-none py-2 pl-10 pr-4;
 }
 /* END: search manufacturer styles */
+
+/* START: About styles */
+.about {
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+}
+
+.about__title {
+  @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
+}
+
+.about__subtitle {
+  @apply text-xl font-arial font-medium mt-4;
+}
+
+.about__image-container {
+  @apply xl:flex-[1.5] flex justify-end items-end w-full;
+}
+
+.about__image {
+  @apply relative xl:w-full w-[90%] xl:h-full h-[590px] z-0;
+}
+
+/* END: About styles */
