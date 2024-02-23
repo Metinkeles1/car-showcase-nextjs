@@ -9,6 +9,8 @@ import CarCard from "./CarCard";
 import CarDetails from "./CarDetails";
 import ShowMore from "./ShowMore";
 import About from "./About";
+import AuthProviders from "./AuthProviders";
+import FormField from "./FormField";
 
 export {
   Hero,
@@ -22,4 +24,6 @@ export {
   CarDetails,
   ShowMore,
   About,
+  AuthProviders,
+  FormField,
 };
