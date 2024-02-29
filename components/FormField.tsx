@@ -16,8 +16,8 @@ const FormField = ({
   setState,
 }: Props) => {
   return (
-    <div className='flexStart flex-col w-full gap-4 '>
-      <label className='w-full text-black-100 '>{title}</label>
+    <div className='flexStart flex-col w-full gap-3'>
+      <label className='w-full text-black font-bold mt-2'>{title}</label>
 
       {isTextArea ? (
         <textarea

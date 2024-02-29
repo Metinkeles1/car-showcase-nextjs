@@ -26,12 +26,11 @@ const Admin = () => {
   };
 
   return (
-    <div className='mt-20 padding-x max-width  '>
-      <div className='flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto w-full bg-light-white rounded-3xl xl:rounded-r-full  '>
-        <div className='flex-1 items-start xl:py-36 py-12 padding-x '>
-          <h1 className='flex items-center justify-center mb-4 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold'>
-            Login
-          </h1>
+    <div className='bg-white'>
+      <div className='admin-login xl:mt-2 mt-10 bg-primary-blue-100 shadow-xl '>
+        <div className='flex-1 xl:py-36 py-12 padding-x '>
+          <h1 className='admin-login__title'>ADMIN LOGIN</h1>
+
           <FormField
             title='Username'
             placeholder='Enter your username'
@@ -46,23 +45,22 @@ const Admin = () => {
             type='password'
           />
 
-          <div className='flex justify-end items-end'>
-            <CustomButton
-              title='Submit'
-              containerStyles='bg-blue-500 text-white hover:bg-blue-700 rounded-full mt-4 mr-4'
-              handleClick={handleSubmit}
-            />
-          </div>
+          <CustomButton
+            title='Submit'
+            containerStyles='bg-primary-blue rounded-full mt-6 '
+            handleClick={handleSubmit}
+            textStyles='text-white'
+          />
         </div>
-        <div className='xl:flex-[1.5] flex justify-end items-end w-full bg-primary-blue rounded-full'>
-          <div className='relative xl:w-full w-[90%] xl:h-full h-[590px] z-0'>
+        <div className='admin-login__image-container xl:py-36 xl:pb-36 bg-primary-blue'>
+          <div className='admin-login__image'>
             <Image
               src='/about-img.png'
               alt='about'
-              width={500}
-              height={500}
               className='object-contain'
+              fill
             />
+            <div className='admin-login__image-overlay' />
           </div>
         </div>
       </div>
