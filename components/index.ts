@@ -11,6 +11,8 @@ import ShowMore from "./ShowMore";
 import About from "./About";
 import AuthProviders from "./AuthProviders";
 import FormField from "./FormField";
+import Sidebar from "./admin/Sidebar";
+import AddCar from "./admin/AddCar";
 
 export {
   Hero,
@@ -26,4 +28,6 @@ export {
   About,
   AuthProviders,
   FormField,
+  Sidebar,
+  AddCar,
 };

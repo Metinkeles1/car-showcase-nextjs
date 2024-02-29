@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { FormField, CustomButton } from "@/components";
+import { FormField, CustomButton } from "../../../../components";
 import { useRouter } from "next/navigation";
 
 const Admin = () => {
@@ -27,7 +27,7 @@ const Admin = () => {
 
   return (
     <div className='mt-20 padding-x max-width  '>
-      <div className='flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto w-full bg-light-white rounded-t-3xl  xl:rounded-r-full  '>
+      <div className='flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto w-full bg-light-white rounded-3xl xl:rounded-r-full  '>
         <div className='flex-1 items-start xl:py-36 py-12 padding-x '>
           <h1 className='flex items-center justify-center mb-4 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold'>
             Login
@@ -59,7 +59,8 @@ const Admin = () => {
             <Image
               src='/about-img.png'
               alt='about'
-              fill
+              width={500}
+              height={500}
               className='object-contain'
             />
           </div>

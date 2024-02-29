@@ -10,10 +10,10 @@ module.exports = {
     extend: {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
-        arial: ["Arial", "sans-serif"]
+        arial: ["Arial", "sans-serif"],
       },
       colors: {
-        'light-white-100': '#F1F4F5',
+        "light-white-100": "#F1F4F5",
         "black-100": "#2B2C35",
         "primary-blue": {
           DEFAULT: "#2B59FF",
@@ -25,12 +25,11 @@ module.exports = {
           100: "rgba(59,60,152,0.02)",
         },
         grey: "#747A88",
-        
       },
       backgroundImage: {
-        'pattern': "url('/pattern.png')",
-        'hero-bg': "url('/hero-bg.png')",
-      }
+        pattern: "url('/pattern.png')",
+        "hero-bg": "url('/hero-bg.png')",
+      },
     },
   },
   plugins: [],
