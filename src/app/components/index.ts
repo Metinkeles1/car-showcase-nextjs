@@ -12,7 +12,7 @@ import About from "./About";
 import AuthProviders from "./AuthProviders";
 import FormField from "./FormField";
 import Sidebar from "./admin/Sidebar";
-import AddCar from "./admin/AddCar";
+import Cars from "./admin/Cars";
 
 export {
   Hero,
@@ -29,5 +29,5 @@ export {
   AuthProviders,
   FormField,
   Sidebar,
-  AddCar,
+  Cars,
 };

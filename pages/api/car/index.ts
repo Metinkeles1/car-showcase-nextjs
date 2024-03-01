@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import Cars from "../../../models/Cars";
-import clientPromise from "../../../lib/mongodb";
+import Cars from "../../../src/app/models/Cars";
+import clientPromise from "../../../src/app/lib/mongodb";
 
 type ResponseData = {
   message: string;
@@ -38,6 +38,7 @@ export default async function handler(
         model,
         transmission,
         year,
+        car_rent,
       } = req.body;
 
       const newCar: Car = {
@@ -53,6 +54,7 @@ export default async function handler(
         model,
         transmission,
         year,
+        car_rent,
       };
 
       await collection.insertOne(newCar);

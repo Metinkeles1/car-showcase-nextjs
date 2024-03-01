@@ -16,24 +16,16 @@ import { RiEBike2Fill } from "react-icons/ri";
 import { BiSolidCategory } from "react-icons/bi";
 import { IoIosMegaphone } from "react-icons/io";
 import Image from "next/image";
-import { AddCar } from "../../components";
+import { Cars } from "../../components";
 
 const Sidebar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [tabs, setTabs] = useState(0);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   const router = useRouter();
 
   return (
-    <div className='flex mt-20'>
-      <div
-        className={`lg:w-80 w-full lg:flex-shrink-0 mt-8 ${
-          isMenuOpen ? "hidden" : "block"
-        } lg:block`}
-      >
+    <div className='flex px-10 lg:flex-row flex-col  my-20'>
+      <div className='lg:w-80 w-full lg:flex-shrink-0 mt-8'>
         <div className='flex flex-col justify-center items-center relative border border-b-0 px-10 py-8'>
           <b className='text-2xl my-2'>Admin</b>
           <div className='relative w-full h-20 object-contain'>
@@ -112,16 +104,8 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <div className='absolute left-4 top-6 z-10'>
-        <button
-          onClick={toggleMenu}
-          className='block bg-primary text-3xl lg:hidden'
-        >
-          <FaBars />
-        </button>
-      </div>
 
-      {tabs === 0 && <AddCar />}
+      {tabs === 0 && <Cars />}
       {/* {tabs === 1 && <Order />}
       {tabs === 2 && <Category />}
       {tabs === 3 && <Campaigns />}

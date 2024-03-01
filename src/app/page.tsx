@@ -9,9 +9,9 @@ import {
   CarCard,
   ShowMore,
   About,
-} from "../../components";
+} from "./components";
 import { fetchCars } from "../../utils";
-import { fuels, yearsOfProduction } from "../../constants";
+import { fuels, yearsOfProduction } from "./constants";
 
 export default function Home({ searchParams }: HomeProps) {
   const [allCars, setAllCars] = useState([]);

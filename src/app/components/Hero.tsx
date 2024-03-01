@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { CustomButton } from "./";
+import { CustomButton } from "../components";
 
 const Hero = () => {
   const handleScroll = () => {};
@@ -26,7 +26,7 @@ const Hero = () => {
         />
       </div>
       <div className='hero__image-container'>
-        <div className='hero__image'>
+        <div className='hero__image '>
           <Image src='/hero.png' alt='hero' fill className='object-contain' />
         </div>
 

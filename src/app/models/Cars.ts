@@ -14,6 +14,7 @@ const CarsSchema = new mongoose.Schema(
     model: { type: String, required: true },
     transmission: { type: String, required: true },
     year: { type: Number, required: true },
+    car_rent: { type: Number, required: true },
   },
   { timestamps: true }
 );

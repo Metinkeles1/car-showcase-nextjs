@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { FormField, CustomButton } from "../../../../components";
+import { FormField, CustomButton } from "../../components";
 import { useRouter } from "next/navigation";
 
 const Admin = () => {
@@ -17,7 +17,7 @@ const Admin = () => {
     ) {
       console.log(username, password);
 
-      router.push("/admin");
+      router.push("/admin/profile");
     } else {
       console.log(username, password);
       console.log(process.env.NEXT_PUBLIC_ADMIN_USERNAME);
@@ -27,7 +27,7 @@ const Admin = () => {
 
   return (
     <div className='bg-white'>
-      <div className='admin-login xl:mt-2 mt-10 bg-primary-blue-100 shadow-xl '>
+      <div className='admin-login mt-28 bg-primary-blue-100 shadow-xl '>
         <div className='flex-1 xl:py-36 py-12 padding-x '>
           <h1 className='admin-login__title'>ADMIN LOGIN</h1>
 
