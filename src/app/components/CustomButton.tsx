@@ -9,6 +9,7 @@ const CustomButton = ({
   btnType,
   textStyles,
   rightIcon,
+  icon,
 }: CustomButtonProps) => {
   return (
     <button
@@ -27,6 +28,10 @@ const CustomButton = ({
             className='object-contain'
           />
         </div>
+      )}
+
+      {icon && (
+        <div className='flex items-center justify-center w-6 h-6 '>{icon}</div>
       )}
     </button>
   );
