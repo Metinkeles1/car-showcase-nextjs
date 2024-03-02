@@ -1,9 +1,8 @@
-"use client";
-
 import { useState } from "react";
 import Image from "next/image";
-import { FormField, CustomButton } from "../../components";
-import { useRouter } from "next/navigation";
+import { FormField, CustomButton } from "@/components";
+import { useRouter } from "next/router";
+import "@/globals.css";
 
 const Admin = () => {
   const [username, setUsername] = useState("");
@@ -36,6 +35,7 @@ const Admin = () => {
             placeholder='Enter your username'
             state={username}
             setState={setUsername}
+            type='text'
           />
           <FormField
             title='Password'

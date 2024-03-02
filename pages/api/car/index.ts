@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import Cars from "../../../src/app/models/Cars";
-import clientPromise from "../../../src/app/lib/mongodb";
+import Cars from "@/models/Cars";
+import clientPromise from "@/lib/mongodb";
 
 type ResponseData = {
   message: string;

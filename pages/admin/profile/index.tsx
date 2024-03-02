@@ -1,8 +1,7 @@
-"use client";
-
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
+import "@/globals.css";
 
 import {
   FaBullhorn,
@@ -15,8 +14,9 @@ import {
 import { RiEBike2Fill } from "react-icons/ri";
 import { BiSolidCategory } from "react-icons/bi";
 import { IoIosMegaphone } from "react-icons/io";
+import { FaCar } from "react-icons/fa6";
 import Image from "next/image";
-import { Cars } from "../../components";
+import { Cars, CarForm } from "@/components";
 
 const Sidebar = () => {
   const [tabs, setTabs] = useState(0);
@@ -24,7 +24,7 @@ const Sidebar = () => {
   const router = useRouter();
 
   return (
-    <div className='flex px-10 lg:flex-row flex-col  my-20'>
+    <div className='flex px-10 lg:flex-row flex-col'>
       <div className='lg:w-80 w-full lg:flex-shrink-0 mt-8'>
         <div className='flex flex-col justify-center items-center relative border border-b-0 px-10 py-8'>
           <b className='text-2xl my-2'>Admin</b>
@@ -45,8 +45,8 @@ const Sidebar = () => {
               tabs === 0 && "bg-primary-blue text-white"
             }`}
           >
-            <i className='fa fa-cutlery' aria-hidden='true'></i>
-            <button className='ml-1'>Products</button>
+            <FaCar />
+            <button className='ml-1'>Cars</button>
           </li>
           <li
             onClick={() => setTabs(1)}
@@ -106,8 +106,8 @@ const Sidebar = () => {
       </div>
 
       {tabs === 0 && <Cars />}
-      {/* {tabs === 1 && <Order />}
-      {tabs === 2 && <Category />}
+      {tabs === 1 && <CarForm />}
+      {/*{tabs === 2 && <Category />}
       {tabs === 3 && <Campaigns />}
       {tabs === 4 && <About />}
       {tabs === 5 && <Reservation />}
