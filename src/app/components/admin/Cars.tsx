@@ -3,10 +3,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { CustomButton } from "../../components";
+import { CustomButton, CreateCar } from "@/components";
+import { IoMdAdd } from "react-icons/io";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,12 +25,21 @@ const Cars = () => {
     fetchData();
   }, []);
 
-  console.log(cars);
-
   return (
     <div>
-      <h1 className='flex text-4xl font-bold font-inter ml-6 mt-8'>Car List</h1>
-      <div className='max-h-[700px] overflow-y-auto'>
+      <div className='flex justify-between '>
+        <h1 className='flex text-4xl font-bold font-inter ml-6 mt-8 mb-4'>
+          Car List
+        </h1>
+        <CustomButton
+          containerStyles='rounded-full bg-primary-blue text-white text-3xl mt-8 mb-4'
+          icon={<IoMdAdd />}
+          handleClick={() => {
+            setModalIsOpen(true);
+          }}
+        />
+      </div>
+      <div className='max-h-[750px] overflow-y-auto'>
         <div className='grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 pt-4 ml-4'>
           {cars?.map((car) => (
             <div className='car-card group min-w-80' key={car._id}>
@@ -99,14 +110,13 @@ const Cars = () => {
                   />
                 </div>
               </div>
-              {/* <CarDetails
-        isOpen={isOpen}
-        closeModal={() => setIsOpen(false)}
-        car={car}
-      /> */}
             </div>
           ))}
         </div>
+        <CreateCar
+          modalIsOpen={modalIsOpen}
+          closeModal={() => setModalIsOpen(false)}
+        />
       </div>
     </div>
   );
