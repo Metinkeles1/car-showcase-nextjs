@@ -10,7 +10,7 @@ import {
   ShowMore,
   About,
 } from "./components";
-import { fetchCars } from "../../utils";
+import { fetchCars } from "./utils";
 import { fuels, yearsOfProduction } from "./constants";
 
 export default function Home({ searchParams }: HomeProps) {
