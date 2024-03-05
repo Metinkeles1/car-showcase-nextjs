@@ -1,5 +1,7 @@
 import "./globals.css";
 import { Footer, Navbar } from "./components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Car Hub",
@@ -14,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className='relative'>
+        <ToastContainer />
         <Navbar />
         {children}
         <Footer />

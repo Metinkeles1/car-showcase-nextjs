@@ -4,30 +4,40 @@ import Image from "next/image";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CarProps } from "./types";
+import { FormField, CustomButton } from "@/components";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 type Props = {
   type: string;
   car?: CarProps;
 };
 
-const CarForm = ({ type, session, project }: Props) => {
+const CarForm = ({ type, car }: Props) => {
   const router = useRouter();
 
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<FormState>({
-    title: project?.title || "",
-    description: project?.description || "",
-    image: project?.image || "",
-    liveSiteUrl: project?.liveSiteUrl || "",
-    githubUrl: project?.githubUrl || "",
-    category: project?.category || "",
+    city_mpg: car?.city_mpg || 0,
+    car_class: car?.car_class || "",
+    combination_mpg: car?.combination_mpg || 0,
+    cylinders: car?.cylinders || 0,
+    displacement: car?.displacement || 0,
+    drive: car?.drive || "",
+    fuel_type: car?.fuel_type || "",
+    highway_mpg: car?.highway_mpg || 0,
+    make: car?.make || "",
+    model: car?.model || "",
+    transmission: car?.transmission || "",
+    year: car?.year || 0,
+    car_rent: car?.car_rent || 0,
   });
 
   const handleStateChange = (fieldName: keyof FormState, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
   };
 
-  // const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+  // */ const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
   //   e.preventDefault();
 
   //   const file = e.target.files?.[0];
@@ -53,28 +63,27 @@ const CarForm = ({ type, session, project }: Props) => {
 
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(form);
 
     setSubmitting(true);
-
-    const { token } = await fetchToken();
-
     try {
       if (type === "create") {
-        await createNewProject(form, session?.user?.id, token);
-
-        router.push("/");
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/car`,
+          form
+        );
+        if (res.status === 201) {
+          toast("car added succesfyllt");
+          // console.log("Car added successfully");
+          // router.push("/admin/profile");
+        }
+      } else if (type === "edit") {
+        // Düzenleme işlemi için gerekli kodu buraya ekleyin
       }
-
-      if (type === "edit") {
-        await updateProject(form, project?.id as string, token);
-
-        router.push("/");
-      }
-    } catch (error) {
+    } catch (err) {
+      console.error("Error:", err);
       alert(
-        `Failed to ${
-          type === "create" ? "create" : "edit"
-        } a project. Try again!`
+        `Failed to ${type === "create" ? "create" : "edit"} a car. Try again!`
       );
     } finally {
       setSubmitting(false);
@@ -83,7 +92,6 @@ const CarForm = ({ type, session, project }: Props) => {
 
   return (
     <form onSubmit={handleFormSubmit} className='flexStart form'>
-      <h2>lkajsdfasldjfljd</h2>
       {/* <div className='flexStart form_image-container'>
         <label htmlFor='poster' className='flexCenter form_image-label'>
           {!form.image && "Choose a poster for your project"}
@@ -104,58 +112,99 @@ const CarForm = ({ type, session, project }: Props) => {
             fill
           />
         )}
-      </div>
-
+      </div> */}
       <FormField
-        title='Title'
-        state={form.title}
-        placeholder='Flexibble'
-        setState={(value) => handleStateChange("title", value)}
+        title='Make'
+        state={form.make}
+        placeholder='Make'
+        setState={(value) => handleStateChange("make", value)}
       />
-
       <FormField
-        title='Description'
-        state={form.description}
-        placeholder='Showcase and discover remarkable developer projects.'
-        isTextArea
-        setState={(value) => handleStateChange("description", value)}
+        title='Model'
+        state={form.model}
+        placeholder='Model'
+        setState={(value) => handleStateChange("model", value)}
       />
-
       <FormField
-        type='url'
-        title='Website URL'
-        state={form.liveSiteUrl}
-        placeholder='https://jsmastery.pro'
-        setState={(value) => handleStateChange("liveSiteUrl", value)}
+        title='Car Class'
+        state={form.car_class}
+        placeholder='Car Class'
+        setState={(value) => handleStateChange("car_class", value)}
       />
-
       <FormField
-        type='url'
-        title='GitHub URL'
-        state={form.githubUrl}
-        placeholder='https://github.com/adrianhajdin'
-        setState={(value) => handleStateChange("githubUrl", value)}
+        title='Combination Mpg'
+        state={form.combination_mpg}
+        placeholder='Combination Mpg'
+        setState={(value) => handleStateChange("combination_mpg", value)}
       />
-
-      <CustomMenu
-        title='Category'
-        state={form.category}
-        filters={categoryFilters}
-        setState={(value) => handleStateChange("category", value)}
+      <FormField
+        title='City Mpg'
+        state={form.city_mpg}
+        placeholder='city Mpg'
+        setState={(value) => handleStateChange("city_mpg", value)}
       />
-
+      <FormField
+        title='Cylinders'
+        state={form.cylinders}
+        placeholder='Cylinders'
+        setState={(value) => handleStateChange("cylinders", value)}
+      />
+      <FormField
+        title='Displacement'
+        state={form.displacement}
+        placeholder='Displacement'
+        setState={(value) => handleStateChange("displacement", value)}
+      />
+      <FormField
+        title='Drive'
+        state={form.drive}
+        placeholder='Drive'
+        setState={(value) => handleStateChange("drive", value)}
+      />
+      <FormField
+        title='Fuel Type'
+        state={form.fuel_type}
+        placeholder='Fuel Type'
+        setState={(value) => handleStateChange("fuel_type", value)}
+      />
+      <FormField
+        title='Highway Mpg'
+        state={form.highway_mpg}
+        placeholder='Highway Mpg'
+        setState={(value) => handleStateChange("highway_mpg", value)}
+      />
+      <FormField
+        title='Transmission'
+        state={form.transmission}
+        placeholder='Transmission'
+        setState={(value) => handleStateChange("transmission", value)}
+      />
+      <FormField
+        title='Year'
+        state={form.year}
+        placeholder='Year'
+        setState={(value) => handleStateChange("year", value)}
+      />
+      <FormField
+        title='Car Rent'
+        state={form.car_rent}
+        placeholder='Car Rent'
+        setState={(value) => handleStateChange("car_rent", value)}
+      />
       <div className='flexStart w-full'>
-        <Button
+        <CustomButton
           title={
             submitting
               ? `${type === "create" ? "Creating" : "Editing"}`
               : `${type === "create" ? "Create" : "Edit"}`
           }
-          type='submit'
-          leftIcon={submitting ? "" : "/plus.svg"}
+          btnType='submit'
+          leftIcon={submitting ? "" : "/close.svg"}
           submitting={submitting}
+          containerStyles='bg-primary-blue rounded-full'
+          textStyles='text-white'
         />
-      </div> */}
+      </div>
     </form>
   );
 };

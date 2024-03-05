@@ -8,7 +8,7 @@ import { IoMdAdd } from "react-icons/io";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {

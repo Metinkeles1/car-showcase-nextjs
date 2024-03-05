@@ -1,3 +1,5 @@
+"use client";
+
 import { CarForm } from "@/components";
 import React from "react";
 import { CarProps } from "@/types";
@@ -5,16 +7,16 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 
-interface CreateCarProps {
-  modalIsOpen: boolean;
+interface CarDetailsProps {
+  isOpen: booelan;
   closeModal: () => void;
 }
 
 const CreateCar = ({ modalIsOpen, closeModal }: CreateCarProps) => {
   return (
-    <>
+    <div>
       <Transition appear show={modalIsOpen} as={Fragment}>
-        <Dialog as='div' className='relative z-10' onClose={closeModal}>
+        <Dialog as='div' className='relative z-50' onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -52,14 +54,19 @@ const CreateCar = ({ modalIsOpen, closeModal }: CreateCarProps) => {
                       className='object-contain'
                     />
                   </button>
-                  <CarForm type='create' />
+                  <div>
+                    <h1 className='flex items-center justify-center text-3xl font-semibold'>
+                      Car Form
+                    </h1>
+                    <CarForm type='create' />
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
         </Dialog>
       </Transition>
-    </>
+    </div>
   );
 };
 

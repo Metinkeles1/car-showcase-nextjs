@@ -10,10 +10,11 @@ const CustomButton = ({
   textStyles,
   rightIcon,
   icon,
+  submitting,
 }: CustomButtonProps) => {
   return (
     <button
-      disabled={false}
+      disabled={submitting || false}
       type={btnType || "button"}
       className={`custom-btn ${containerStyles}`}
       onClick={handleClick}

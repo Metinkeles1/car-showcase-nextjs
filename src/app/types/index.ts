@@ -3,12 +3,13 @@ import { MouseEventHandler } from "react";
 export interface CustomButtonProps {
   title: string;
   sontainerStyles?: string;
-  handleClick?: MouseEventHandler<HtmlButtonElement>;
   btnType?: "button" | "submit";
   textStyles?: string;
   rightIcon?: string;
   icon?: ReactNode;
   isDisabled?: boolean;
+  handleClick?: MouseEventHandler;
+  submitting?: boolean | false;
 }
 
 export interface SearchManufacturerProps {
