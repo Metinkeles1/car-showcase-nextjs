@@ -1,8 +1,10 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import { FormField, CustomButton } from "@/components";
-import { useRouter } from "next/router";
-import "@/globals.css";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Admin = () => {
   const [username, setUsername] = useState("");
@@ -14,15 +16,14 @@ const Admin = () => {
       username === process.env.NEXT_PUBLIC_ADMIN_USERNAME &&
       password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD
     ) {
-      console.log(username, password);
-
+      toast.success("Login Success");
       router.push("/admin/profile");
     } else {
-      console.log(username, password);
-      console.log(process.env.NEXT_PUBLIC_ADMIN_USERNAME);
-      alert("Invalid username or password");
+      toast.error("Invalid username or password");
     }
   };
+
+  const notify = () => {};
 
   return (
     <div className='bg-white'>

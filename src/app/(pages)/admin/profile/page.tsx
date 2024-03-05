@@ -1,7 +1,8 @@
+"use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import "@/globals.css";
+import { useRouter } from "next/navigation";
 
 import {
   FaBullhorn,
@@ -24,7 +25,7 @@ const Sidebar = () => {
   const router = useRouter();
 
   return (
-    <div className='flex px-10 lg:flex-row flex-col'>
+    <div className='flex px-10 lg:flex-row flex-col mt-20'>
       <div className='lg:w-80 w-full lg:flex-shrink-0 mt-8'>
         <div className='flex flex-col justify-center items-center relative border border-b-0 px-10 py-8'>
           <b className='text-2xl my-2'>Admin</b>
