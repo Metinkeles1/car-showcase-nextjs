@@ -1,19 +1,21 @@
 type Props = {
   type?: string;
+  name: string;
   title: string;
-  state: string;
+  value: string;
   placeholder: string;
   isTextArea?: boolean;
-  setState: (value: string) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
 const FormField = ({
   type,
   title,
-  state,
+  name,
+  value,
   placeholder,
   isTextArea,
-  setState,
+  onChange,
 }: Props) => {
   return (
     <div className='flexStart flex-col w-full gap-3'>
@@ -21,19 +23,21 @@ const FormField = ({
 
       {isTextArea ? (
         <textarea
+          name={name}
           placeholder={placeholder}
-          value={state}
           className='form_field-input'
-          onChange={(e) => setState(e.target.value)}
+          onChange={onChange}
+          value={value}
         />
       ) : (
         <input
           type={type || "text"}
+          name={name}
+          value={value}
           placeholder={placeholder}
           required
-          value={state}
           className='form_field-input'
-          onChange={(e) => setState(e.target.value)}
+          onChange={onChange}
         />
       )}
     </div>

@@ -5,16 +5,15 @@ import Image from "next/image";
 import { FormField, CustomButton } from "@/components";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useFormik } from "formik";
 
 const Admin = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleSubmit = () => {
+  const onSubmit = (values, actions) => {
     if (
-      username === process.env.NEXT_PUBLIC_ADMIN_USERNAME &&
-      password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD
+      values.userName === process.env.NEXT_PUBLIC_ADMIN_USERNAME &&
+      values.password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD
     ) {
       toast.success("Login Success");
       router.push("/admin/profile");
@@ -23,36 +22,59 @@ const Admin = () => {
     }
   };
 
-  const notify = () => {};
+  const { values, handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      userName: "",
+      password: "",
+    },
+    onSubmit,
+  });
+
+  const inputs = [
+    {
+      id: 1,
+      name: "userName",
+      title: "User Name",
+      type: "text",
+      placeholder: "Your Username",
+      values: values.userName,
+    },
+    {
+      id: 2,
+      name: "password",
+      title: "Password",
+      type: "password",
+      placeholder: "Your Password",
+      values: values.password,
+    },
+  ];
 
   return (
     <div className='bg-white'>
       <div className='admin-login mt-28 bg-primary-blue-100 shadow-xl '>
-        <div className='flex-1 xl:py-36 py-12 padding-x '>
-          <h1 className='admin-login__title'>ADMIN LOGIN</h1>
+        <form onSubmit={handleSubmit}>
+          <div className='flex-1 xl:py-36 py-12 padding-x '>
+            <h1 className='admin-login__title'>ADMIN LOGIN</h1>
+            {inputs.map((input) => (
+              <FormField
+                key={input.id}
+                title={input.title}
+                placeholder={input.placeholder}
+                name={input.name}
+                type={input.type}
+                values={input.values}
+                onChange={handleChange}
+              />
+            ))}
 
-          <FormField
-            title='Username'
-            placeholder='Enter your username'
-            state={username}
-            setState={setUsername}
-            type='text'
-          />
-          <FormField
-            title='Password'
-            placeholder='Enter your password'
-            state={password}
-            setState={setPassword}
-            type='password'
-          />
-
-          <CustomButton
-            title='Submit'
-            containerStyles='bg-primary-blue rounded-full mt-6 '
-            handleClick={handleSubmit}
-            textStyles='text-white'
-          />
-        </div>
+            <CustomButton
+              title='Submit'
+              containerStyles='bg-primary-blue rounded-full mt-6 '
+              handleClick={handleSubmit}
+              textStyles='text-white'
+            />
+          </div>
+        </form>
         <div className='admin-login__image-container xl:py-36 xl:pb-36 bg-primary-blue'>
           <div className='admin-login__image'>
             <Image
