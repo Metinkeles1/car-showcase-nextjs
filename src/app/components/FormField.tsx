@@ -6,6 +6,9 @@ type Props = {
   placeholder: string;
   isTextArea?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  touched: boolean;
+  errorMessage: string;
+  onBlur: () => void;
 };
 
 const FormField = ({
@@ -16,10 +19,15 @@ const FormField = ({
   placeholder,
   isTextArea,
   onChange,
+  touched,
+  errorMessage,
+  onBlur,
 }: Props) => {
   return (
     <div className='flexStart flex-col w-full gap-3'>
-      <label className='w-full text-black font-bold mt-2'>{title}</label>
+      <label className='w-full text-black font-bold mt-2'>
+        {title} {touched && <span className='text-danger'>*</span>}
+      </label>
 
       {isTextArea ? (
         <textarea
@@ -36,8 +44,11 @@ const FormField = ({
           value={value}
           placeholder={placeholder}
           required
-          className='form_field-input'
+          className={`w-full outline-0 bg-light-white-100 rounded-xl p-4 border ${
+            touched && errorMessage ? "border-danger" : ""
+          }`}
           onChange={onChange}
+          onBlur={onBlur}
         />
       )}
     </div>

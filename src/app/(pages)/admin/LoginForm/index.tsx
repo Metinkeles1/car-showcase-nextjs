@@ -6,15 +6,19 @@ import { FormField, CustomButton } from "@/components";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
+import { loginSchema } from "@/schema/admin/login";
+import { IoMdAdd } from "react-icons/io";
 
 const Admin = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (values, actions) => {
     if (
       values.userName === process.env.NEXT_PUBLIC_ADMIN_USERNAME &&
       values.password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD
     ) {
+      setLoading(true);
       toast.success("Login Success");
       router.push("/admin/profile");
     } else {
@@ -22,13 +26,15 @@ const Admin = () => {
     }
   };
 
-  const { values, handleSubmit, handleChange } = useFormik({
-    initialValues: {
-      userName: "",
-      password: "",
-    },
-    onSubmit,
-  });
+  const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
+    useFormik({
+      initialValues: {
+        userName: "",
+        password: "",
+      },
+      onSubmit,
+      validationSchema: loginSchema,
+    });
 
   const inputs = [
     {
@@ -37,7 +43,9 @@ const Admin = () => {
       title: "User Name",
       type: "text",
       placeholder: "Your Username",
-      values: values.userName,
+      value: values.userName,
+      errorMessage: errors.userName,
+      touched: touched.userName,
     },
     {
       id: 2,
@@ -45,7 +53,9 @@ const Admin = () => {
       title: "Password",
       type: "password",
       placeholder: "Your Password",
-      values: values.password,
+      value: values.password,
+      errorMessage: errors.password,
+      touched: touched.password,
     },
   ];
 
@@ -62,8 +72,11 @@ const Admin = () => {
                 placeholder={input.placeholder}
                 name={input.name}
                 type={input.type}
-                values={input.values}
+                value={input.value}
                 onChange={handleChange}
+                onBlur={handleBlur}
+                errorMessage={input.errorMessage}
+                touched={input.touched}
               />
             ))}
 
@@ -72,6 +85,7 @@ const Admin = () => {
               containerStyles='bg-primary-blue rounded-full mt-6 '
               handleClick={handleSubmit}
               textStyles='text-white'
+              submitting={loading}
             />
           </div>
         </form>
