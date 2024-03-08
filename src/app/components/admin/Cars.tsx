@@ -3,27 +3,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { CustomButton, CreateCar } from "@/components";
+import { CustomButton, CreateCar, EditCar } from "@/components";
 import { IoMdAdd } from "react-icons/io";
 
 const Cars = () => {
-  const [cars, setCars] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [cars, setCars] = useState<array>([]);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState<boolean>(false);
+  const [selectedCar, setSelectedCar] = useState<object>({});
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/car`
+      );
+      setCars(response.data);
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/car`
-        );
-        setCars(response.data);
-      } catch (error) {
-        console.error("Error fetching cars:", error);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const handleEditClick = (car) => {
+    setSelectedCar(car);
+    setModalUpdateIsOpen(true);
+  };
 
   return (
     <div>
@@ -49,13 +56,13 @@ const Cars = () => {
                 </h2>
               </div>
 
-              <p className='flex mt-6 text-[32px] font-extrabold'>
+              <p className='car-card__price'>
                 <span className='self-start text-[14px] font-semibold'>$</span>
                 {car.car_rent}
                 <span className='self-end text-[14px] font-medium'>/day</span>
               </p>
 
-              <div className='relative w-full h-40 my-3 object-contain'>
+              <div className='car-card__image'>
                 <Image
                   src='/hero.png'
                   alt='car model'
@@ -66,53 +73,25 @@ const Cars = () => {
                 />
               </div>
 
-              <div className='relative flex w-full mt-2'>
-                <div className='flex group-hover:invisible w-full justify-between text-gray'>
-                  <div className='flex flex-col justify-center items-center gap-2'>
-                    <Image
-                      src='/steering-wheel.svg'
-                      width={20}
-                      height={20}
-                      alt='steering wheel'
-                    />
-                    <p className='text-[14px]'>
-                      {car.transmisson === "a" ? "Automatic" : "Manual"}
-                    </p>
-                  </div>
-                  <div className='flex flex-col justify-center items-center gap-2'>
-                    <Image
-                      src='/tire.svg'
-                      width={20}
-                      height={20}
-                      alt='tire wheel'
-                    />
-                    <p className='text-[14px]'>{car.drive.toUpperCase()}</p>
-                  </div>
-                  <div className='flex flex-col justify-center items-center gap-2'>
-                    <Image
-                      src='/gas.svg'
-                      width={20}
-                      height={20}
-                      alt='gas wheel'
-                    />
-                    <p className='text-[14px]'>{car.city_mpg}</p>
-                  </div>
-                </div>
-                <div className='car-card__btn-container'>
+              <div className='relative flex w-full '>
+                <div className='w-full'>
                   <CustomButton
-                    title='View More'
-                    containerStyles='w-full py-[16px] rounded-full bg-primary-blue'
+                    title='Edit'
+                    containerStyles='w-full py-[16px] rounded-full bg-primary-blue '
                     textStyles='text-white text-[14px] leading-[17px] font-bold'
                     rightIcon='/right-arrow.svg'
-                    handleClick={() => {
-                      setIsOpen(true);
-                    }}
+                    handleClick={() => handleEditClick(car)}
                   />
                 </div>
               </div>
             </div>
           ))}
         </div>
+        <EditCar
+          modalUpdateIsOpen={modalUpdateIsOpen}
+          closeModal={() => setModalUpdateIsOpen(false)}
+          car={selectedCar}
+        />
         <CreateCar
           modalIsOpen={modalIsOpen}
           closeModal={() => setModalIsOpen(false)}
