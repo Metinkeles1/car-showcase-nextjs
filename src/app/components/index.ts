@@ -13,6 +13,7 @@ import AuthProviders from "./AuthProviders";
 import FormField from "./FormField";
 import Cars from "./admin/Cars";
 import CreateCar from "./admin/CreateCar";
+import EditCar from "./admin/EditCar";
 import CarForm from "./CarForm";
 
 export {
@@ -30,6 +31,7 @@ export {
   AuthProviders,
   FormField,
   CreateCar,
+  EditCar,
   Cars,
   CarForm,
 };
