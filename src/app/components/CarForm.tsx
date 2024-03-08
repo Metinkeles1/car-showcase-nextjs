@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CarProps } from "./types";
+import { CarProps, carsGetProps } from "./types";
 import { FormField, CustomButton } from "@/components";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -13,9 +13,10 @@ import { carSchema } from "@/schema/carSchema";
 type Props = {
   type: string;
   car?: CarProps;
+  getCars: carsGetProps;
 };
 
-const CarForm = ({ type, car }: Props) => {
+const CarForm = ({ type, car, getCars }: Props) => {
   const router = useRouter();
 
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -82,6 +83,11 @@ const CarForm = ({ type, car }: Props) => {
           `${process.env.NEXT_PUBLIC_API_URL}/car/${car._id}`,
           values
         );
+
+        if (res.status === 200) {
+          toast.success("Updated Car Successfully");
+          getCars();
+        }
       }
     } catch (err) {
       console.error("Error:", err);

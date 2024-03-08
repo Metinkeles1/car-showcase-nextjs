@@ -5,12 +5,14 @@ import axios from "axios";
 import Image from "next/image";
 import { CustomButton, CreateCar, EditCar } from "@/components";
 import { IoMdAdd } from "react-icons/io";
+import { CarProps } from "@/types/index";
+import { carsGetProps } from "@/types/index";
 
 const Cars = () => {
   const [cars, setCars] = useState<array>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState<boolean>(false);
-  const [selectedCar, setSelectedCar] = useState<object>({});
+  const [selectedCar, setSelectedCar] = useState<CarProps | null>(null);
 
   const fetchData = async () => {
     try {
@@ -30,6 +32,10 @@ const Cars = () => {
   const handleEditClick = (car) => {
     setSelectedCar(car);
     setModalUpdateIsOpen(true);
+  };
+
+  const getCars: carsGetProps = () => {
+    fetchData();
   };
 
   return (
@@ -91,10 +97,12 @@ const Cars = () => {
           modalUpdateIsOpen={modalUpdateIsOpen}
           closeModal={() => setModalUpdateIsOpen(false)}
           car={selectedCar}
+          getCars={getCars}
         />
         <CreateCar
           modalIsOpen={modalIsOpen}
           closeModal={() => setModalIsOpen(false)}
+          getCars={getCars}
         />
       </div>
     </div>

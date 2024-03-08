@@ -7,12 +7,13 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 
-interface CarDetailsProps {
+interface CreateCarProps {
   isOpen: booelan;
   closeModal: () => void;
+  getCars: CarProps;
 }
 
-const CreateCar = ({ modalIsOpen, closeModal }: CreateCarProps) => {
+const CreateCar = ({ modalIsOpen, closeModal, getCars }: CreateCarProps) => {
   return (
     <div>
       <Transition appear show={modalIsOpen} as={Fragment}>

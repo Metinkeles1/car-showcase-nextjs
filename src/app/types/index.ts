@@ -32,6 +32,10 @@ export interface CarProps {
   year: number;
 }
 
+export interface carsGetProps {
+  getCars: () => void;
+}
+
 export interface FilterProps {
   manufacturer: string;
   year: number;
