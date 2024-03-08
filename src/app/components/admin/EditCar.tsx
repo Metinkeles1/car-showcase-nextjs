@@ -8,14 +8,16 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 
 interface CarDetailsProps {
-  isOpen: booelan;
+  modalUpdateIsOpen: booelan;
   closeModal: () => void;
 }
 
-const CreateCar = ({ modalIsOpen, closeModal }: CreateCarProps) => {
+const EditCar = ({ modalUpdateIsOpen, closeModal, car }: CreateCarProps) => {
+  console.log(car);
+
   return (
     <div>
-      <Transition appear show={modalIsOpen} as={Fragment}>
+      <Transition appear show={modalUpdateIsOpen} as={Fragment}>
         <Dialog as='div' className='relative z-50' onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -58,7 +60,7 @@ const CreateCar = ({ modalIsOpen, closeModal }: CreateCarProps) => {
                     <h1 className='flex items-center justify-center text-3xl font-semibold'>
                       Car Form
                     </h1>
-                    <CarForm type='create' />
+                    <CarForm type='edit' car={car} />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -70,4 +72,4 @@ const CreateCar = ({ modalIsOpen, closeModal }: CreateCarProps) => {
   );
 };
 
-export default CreateCar;
+export default EditCar;
