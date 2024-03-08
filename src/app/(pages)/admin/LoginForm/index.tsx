@@ -64,34 +64,35 @@ const Admin = () => {
   return (
     <div className='bg-white'>
       <div className='admin-login mt-28 bg-primary-blue-100 shadow-xl '>
-        <form onSubmit={handleSubmit}>
-          <div className='flex-1 xl:py-36 py-12 padding-x '>
-            <h1 className='admin-login__title'>ADMIN LOGIN</h1>
-            {inputs.map((input) => (
-              <FormField
-                key={input.id}
-                title={input.title}
-                placeholder={input.placeholder}
-                name={input.name}
-                type={input.type}
-                value={input.value}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                errorMessage={input.errorMessage}
-                touched={input.touched}
-              />
-            ))}
-
-            <CustomButton
-              title='Submit'
-              containerStyles='bg-primary-blue rounded-full mt-6 '
-              handleClick={handleSubmit}
-              textStyles='text-white'
-              submitting={submitting}
+        <form
+          className='flex-1 xl:py-36 py-12 padding-x '
+          onSubmit={handleSubmit}
+        >
+          <h1 className='admin-login__title'>ADMIN LOGIN</h1>
+          {inputs.map((input) => (
+            <FormField
+              key={input.id}
+              title={input.title}
+              placeholder={input.placeholder}
+              name={input.name}
+              type={input.type}
+              value={input.value}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorMessage={input.errorMessage}
+              touched={input.touched}
             />
-          </div>
+          ))}
+
+          <CustomButton
+            title='Submit'
+            containerStyles='bg-primary-blue rounded-full mt-6 '
+            handleClick={handleSubmit}
+            textStyles='text-white'
+            submitting={submitting}
+          />
         </form>
-        <div className='admin-login__image-container xl:py-36 xl:pb-36 bg-primary-blue'>
+        <div className='admin-login__image-container xl:py-36 py-4 bg-primary-blue bg-opacity-75'>
           <div className='admin-login__image'>
             <Image
               src='/about-img.png'
