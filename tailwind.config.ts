@@ -27,6 +27,7 @@ module.exports = {
         grey: "#747A88",
         danger: "#dc3545",
         info: "#17a2b8",
+        warning: "#ffc107",
       },
       backgroundImage: {
         pattern: "url('/pattern.png')",

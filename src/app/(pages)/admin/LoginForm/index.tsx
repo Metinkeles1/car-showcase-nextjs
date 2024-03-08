@@ -11,14 +11,16 @@ import { IoMdAdd } from "react-icons/io";
 
 const Admin = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const onSubmit = (values, actions) => {
+    console.log(values);
+
     if (
       values.userName === process.env.NEXT_PUBLIC_ADMIN_USERNAME &&
       values.password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD
     ) {
-      setLoading(true);
+      setSubmitting(true);
       toast.success("Login Success");
       router.push("/admin/profile");
     } else {
@@ -85,7 +87,7 @@ const Admin = () => {
               containerStyles='bg-primary-blue rounded-full mt-6 '
               handleClick={handleSubmit}
               textStyles='text-white'
-              submitting={loading}
+              submitting={submitting}
             />
           </div>
         </form>
