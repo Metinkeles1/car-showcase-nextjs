@@ -1,6 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import Cars from "@/models/Cars";
+import { NextApiRequest, NextApiResponse } from "next";
+import { ObjectId } from "mongodb"; // ObjectId için import ekledim
 import clientPromise from "@/lib/mongodb";
+import { CarProps } from "@/types/index";
 
 type ResponseData = {
   message: string;
@@ -14,16 +15,23 @@ export default async function handler(
   const client = await clientPromise;
   const db = client.db();
   const collection = db.collection<CarProps>("cars");
+  const { id } = req.query;
+  const carId = typeof id === "string" ? new ObjectId(id) : null;
 
   if (req.method === "GET") {
     try {
-      const cars = await collection.find({}).toArray();
-      res.status(200).json(cars);
+      const car = await collection.findOne({ _id: carId });
+
+      if (!car) {
+        return res.status(404).json({ message: "Car not found" });
+      }
+
+      res.status(200).json(car);
     } catch (error) {
-      console.error("Error fetching cars:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      console.error("Error fetching car:", error);
+      res.status(500).json({ message: "Server Error" });
     }
-  } else if (req.method === "POST") {
+  } else if (req.method === "PUT") {
     try {
       const {
         city_mpg,
@@ -40,8 +48,7 @@ export default async function handler(
         year,
         car_rent,
       } = req.body;
-
-      const newCar: CarProps = {
+      const updatedCar: CarProps = {
         city_mpg,
         car_class,
         combination_mpg,
@@ -57,11 +64,18 @@ export default async function handler(
         car_rent,
       };
 
-      await collection.insertOne(newCar);
-      res.status(201).json({ message: "Car added successfully" });
+      const result = await collection.updateOne(
+        { _id: carId },
+        { $set: updatedCar }
+      );
+
+      if (result.modifiedCount === 0) {
+        return res.status(404).json({ message: "Car not found" });
+      }
+      res.status(200).json(updatedCar);
     } catch (error) {
-      console.error("Error adding car:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      console.error("Error updating car:", error);
+      res.status(500).json({ message: "Server Error" });
     }
   } else {
     res.status(405).json({ message: "Method Not Allowed" });
