@@ -2,7 +2,7 @@
 
 import { CarForm } from "@/components";
 import React from "react";
-import { CarProps } from "@/types";
+import { CarProps, carsGetProps } from "@/types";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import Image from "next/image";
 interface CreateCarProps {
   isOpen: booelan;
   closeModal: () => void;
-  getCars: CarProps;
+  getCars: carsGetProps;
 }
 
 const CreateCar = ({ modalIsOpen, closeModal, getCars }: CreateCarProps) => {
