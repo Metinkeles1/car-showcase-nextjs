@@ -26,7 +26,8 @@ const FormField = ({
   return (
     <div className='flexStart flex-col w-full gap-3'>
       <label className='w-full text-black font-bold mt-2'>
-        {title} {touched && <span className='text-danger'>*</span>}
+        {title}
+        {touched && errorMessage ? <span className='text-danger'>*</span> : ""}
       </label>
 
       {isTextArea ? (
