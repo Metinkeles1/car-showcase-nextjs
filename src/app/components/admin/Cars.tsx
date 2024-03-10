@@ -9,7 +9,7 @@ import { CarProps } from "@/types/index";
 import { carsGetProps } from "@/types/index";
 
 const Cars = () => {
-  const [cars, setCars] = useState<array>([]);
+  const [cars, setCars] = useState<Array>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState<boolean>(false);
   const [selectedCar, setSelectedCar] = useState<CarProps | null>(null);
@@ -39,8 +39,8 @@ const Cars = () => {
   };
 
   return (
-    <div>
-      <div className='flex justify-between '>
+    <div className='w-full'>
+      <div className='flex justify-between'>
         <h1 className='flex text-4xl font-bold font-inter ml-6 mt-8 mb-4'>
           Car List
         </h1>
@@ -52,8 +52,79 @@ const Cars = () => {
           }}
         />
       </div>
-      <div className='max-h-[750px] overflow-y-auto'>
-        <div className='grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 pt-4 ml-4'>
+      <div className='max-h-[470px] overflow-y-auto'>
+        <div className='relative overflow-x-auto shadow-md sm:rounded-lg mx-4'>
+          <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+            <thead className='text-xs  uppercase text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+              <tr>
+                <th scope='col' className='px-16 py-3'>
+                  <span className='sr-only'>Image</span>
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Car Name
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Year
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Car class
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Fuel
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Price
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {cars.map((car) => (
+                <tr
+                  key={car._id}
+                  className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'
+                >
+                  <td className='p-4'>
+                    <img
+                      src='/hero.png'
+                      className='w-16 md:w-32 max-w-full max-h-full'
+                      alt='Apple Watch'
+                    />
+                  </td>
+                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                    {car.make} {car.model}
+                  </td>
+                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                    {car.year}
+                  </td>
+                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                    {car.car_class}
+                  </td>
+                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                    {car.fuel_type}
+                  </td>
+                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                    ${car.car_rent}
+                  </td>
+
+                  <td className='px-6 py-4'>
+                    <CustomButton
+                      title='Edit'
+                      containerStyles='py-[16px] rounded-full bg-primary-blue '
+                      textStyles='text-white text-[14px] leading-[17px] font-bold'
+                      rightIcon='/right-arrow.svg'
+                      handleClick={() => handleEditClick(car)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* <div className='grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 pt-4 ml-4'>
           {cars?.map((car) => (
             <div className='car-card group min-w-80' key={car._id}>
               <div className='car-card__content'>
@@ -92,7 +163,7 @@ const Cars = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
         <EditCar
           modalUpdateIsOpen={modalUpdateIsOpen}
           closeModal={() => setModalUpdateIsOpen(false)}
