@@ -88,7 +88,7 @@ const Cars = () => {
                 >
                   <td className='p-4'>
                     <img
-                      src='/hero.png'
+                      src={car?.car_img ? car.car_img : "/hero.png"}
                       className='w-16 md:w-32 max-w-full max-h-full'
                       alt='Apple Watch'
                     />

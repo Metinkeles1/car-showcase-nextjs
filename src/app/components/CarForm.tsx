@@ -21,6 +21,7 @@ const CarForm = ({ type, car, getCars }: Props) => {
 
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<FormState>({
+    car_img: car?.car_img || "",
     city_mpg: car?.city_mpg || 0,
     car_class: car?.car_class || "",
     combination_mpg: car?.combination_mpg || 0,
@@ -36,52 +37,54 @@ const CarForm = ({ type, car, getCars }: Props) => {
     car_rent: car?.car_rent || 0,
   });
 
-  // const handleStateChange = (fieldName: keyof FormState, value: string) => {
-  //   setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
-  // };
+  const handleStateChange = (fieldName: keyof FormState, value: string) => {
+    setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
+  };
 
-  // */ const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
-  //   const file = e.target.files?.[0];
+    if (!file) return;
 
-  //   if (!file) return;
+    if (!file.type.includes("image")) {
+      alert("Please upload an car_img!");
 
-  //   if (!file.type.includes("image")) {
-  //     alert("Please upload an image!");
+      return;
+    }
 
-  //     return;
-  //   }
+    const reader = new FileReader();
 
-  //   const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-  //   reader.readAsDataURL(file);
+    reader.onload = () => {
+      const result = reader.result as string;
 
-  //   reader.onload = () => {
-  //     const result = reader.result as string;
-
-  //     handleStateChange("image", result);
-  //   };
-  // };
+      // setFieldValue("car_img", result);
+      handleStateChange("car_img", result);
+    };
+  };
 
   const onSubmit = async () => {
     console.log(values);
+    console.log(form);
 
     setSubmitting(true);
+
     try {
       if (type === "create") {
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/car`,
-          values
+          form
         );
         if (res.status === 201) {
-          toast("car added succesfyllt");
+          toast.success("Car Added Successfully");
+          getCars();
         }
       }
       if (type === "edit") {
         const res = await axios.put(
           `${process.env.NEXT_PUBLIC_API_URL}/car/${car._id}`,
-          values
+          form
         );
 
         if (res.status === 200) {
@@ -99,12 +102,19 @@ const CarForm = ({ type, car, getCars }: Props) => {
     }
   };
 
-  const { handleSubmit, values, errors, touched, handleChange, handleBlur } =
-    useFormik({
-      initialValues: form,
-      onSubmit,
-      validationSchema: carSchema,
-    });
+  const {
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+  } = useFormik({
+    initialValues: form,
+    onSubmit,
+    validationSchema: carSchema,
+  });
 
   const inputs = [
     {
@@ -244,27 +254,27 @@ const CarForm = ({ type, car, getCars }: Props) => {
       onSubmit={handleSubmit}
       className='grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-2 w-full'
     >
-      {/* <div className='flexStart form_image-container'>
+      <div className='flexStart form_image-container'>
         <label htmlFor='poster' className='flexCenter form_image-label'>
-          {!form.image && "Choose a poster for your project"}
+          {!form.car_img && "Choose a poster for your project"}
         </label>
         <input
-          id='image'
+          id='car_img'
           type='file'
-          accept='image/*'
+          accept='car_img/*'
           required={type === "create" ? true : false}
           className='form_image-input'
           onChange={(e) => handleChangeImage(e)}
         />
-        {form.image && (
+        {form.car_img && (
           <Image
-            src={form?.image}
+            src={form?.car_img}
             className='sm:p-10 object-contain z-20'
-            alt='image'
+            alt='Image'
             fill
           />
         )}
-      </div> */}
+      </div>
       {inputs.map((input) => (
         <FormField
           key={input.id}

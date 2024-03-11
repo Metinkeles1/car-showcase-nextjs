@@ -59,7 +59,7 @@ const CreateCar = ({ modalIsOpen, closeModal, getCars }: CreateCarProps) => {
                     <h1 className='flex items-center justify-center text-3xl font-semibold'>
                       Car Form
                     </h1>
-                    <CarForm type='create' />
+                    <CarForm type='create' getCars={getCars} />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

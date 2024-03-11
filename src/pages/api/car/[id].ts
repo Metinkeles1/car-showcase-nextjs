@@ -34,6 +34,7 @@ export default async function handler(
   } else if (req.method === "PUT") {
     try {
       const {
+        car_img,
         city_mpg,
         car_class,
         combination_mpg,
@@ -49,6 +50,7 @@ export default async function handler(
         car_rent,
       } = req.body;
       const updatedCar: CarProps = {
+        car_img,
         city_mpg,
         car_class,
         combination_mpg,

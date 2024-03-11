@@ -26,6 +26,7 @@ export default async function handler(
   } else if (req.method === "POST") {
     try {
       const {
+        car_img,
         city_mpg,
         car_class,
         combination_mpg,
@@ -42,6 +43,7 @@ export default async function handler(
       } = req.body;
 
       const newCar: CarProps = {
+        car_img,
         city_mpg,
         car_class,
         combination_mpg,

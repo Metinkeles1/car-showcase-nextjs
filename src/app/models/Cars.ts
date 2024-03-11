@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const CarsSchema = new mongoose.Schema(
   {
+    car_img: { type: String, required: true },
     city_mpg: { type: Number, required: true },
     car_class: { type: String, required: true },
     combination_mpg: { type: Number, required: true },
