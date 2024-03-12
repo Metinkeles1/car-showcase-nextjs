@@ -18,7 +18,7 @@ type Props = {
 
 const CarForm = ({ type, car, getCars }: Props) => {
   const router = useRouter();
-
+  const [file, setFile] = useState<string>("");
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<FormState>({
     car_img: car?.car_img || "",
@@ -59,22 +59,35 @@ const CarForm = ({ type, car, getCars }: Props) => {
     reader.onload = () => {
       const result = reader.result as string;
 
-      // setFieldValue("car_img", result);
+      setFieldValue("car_img", result);
       handleStateChange("car_img", result);
+      setFile(result);
     };
   };
 
   const onSubmit = async () => {
-    console.log(values);
-    console.log(form);
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "car-showcase");
 
     setSubmitting(true);
 
     try {
+      let updatedImageUrl = car.car_img;
+      if (file) {
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/dtpwumy30/image/upload",
+          data
+        );
+        updatedImageUrl = uploadRes.data.url;
+      }
+
+      const postData = { ...values, car_img: updatedImageUrl };
+
       if (type === "create") {
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/car`,
-          form
+          postData
         );
         if (res.status === 201) {
           toast.success("Car Added Successfully");
@@ -84,7 +97,7 @@ const CarForm = ({ type, car, getCars }: Props) => {
       if (type === "edit") {
         const res = await axios.put(
           `${process.env.NEXT_PUBLIC_API_URL}/car/${car._id}`,
-          form
+          postData
         );
 
         if (res.status === 200) {
