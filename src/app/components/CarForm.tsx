@@ -18,7 +18,6 @@ type Props = {
 
 const CarForm = ({ type, car, getCars }: Props) => {
   const router = useRouter();
-  const [file, setFile] = useState<string>("");
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<FormState>({
     car_img: car?.car_img || "",
@@ -60,21 +59,19 @@ const CarForm = ({ type, car, getCars }: Props) => {
       const result = reader.result as string;
 
       setFieldValue("car_img", result);
-      handleStateChange("car_img", result);
-      setFile(result);
     };
   };
 
   const onSubmit = async () => {
     const data = new FormData();
-    data.append("file", file);
+    data.append("file", values.car_img);
     data.append("upload_preset", "car-showcase");
 
     setSubmitting(true);
 
     try {
-      let updatedImageUrl = car.car_img;
-      if (file) {
+      let updatedImageUrl = car?.car_img || "";
+      if (values.car_img) {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dtpwumy30/image/upload",
           data
@@ -269,7 +266,7 @@ const CarForm = ({ type, car, getCars }: Props) => {
     >
       <div className='flexStart form_image-container'>
         <label htmlFor='poster' className='flexCenter form_image-label'>
-          {!form.car_img && "Choose a poster for your project"}
+          {!values.car_img && "Choose a poster for your project"}
         </label>
         <input
           id='car_img'
@@ -279,9 +276,9 @@ const CarForm = ({ type, car, getCars }: Props) => {
           className='form_image-input'
           onChange={(e) => handleChangeImage(e)}
         />
-        {form.car_img && (
+        {values.car_img && (
           <Image
-            src={form?.car_img}
+            src={values?.car_img}
             className='sm:p-10 object-contain z-20'
             alt='Image'
             fill
