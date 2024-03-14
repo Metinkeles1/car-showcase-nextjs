@@ -24,7 +24,7 @@ const FormField = ({
   onBlur,
 }: Props) => {
   return (
-    <div className='flexStart flex-col w-full gap-3'>
+    <div className='flex-start flex-col w-full gap-3'>
       <label className='w-full text-black font-bold mt-2'>
         {title}
         {touched && errorMessage ? <span className='text-danger'>*</span> : ""}

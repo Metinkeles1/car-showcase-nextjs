@@ -262,44 +262,49 @@ const CarForm = ({ type, car, getCars }: Props) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-2 w-full'
+      // className='grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-2 w-full'
+      className='form'
     >
-      <div className='flexStart form_image-container'>
-        <label htmlFor='poster' className='flexCenter form_image-label'>
-          {!values.car_img && "Choose a poster for your project"}
-        </label>
-        <input
-          id='car_img'
-          type='file'
-          accept='car_img/*'
-          required={type === "create" ? true : false}
-          className='form_image-input'
-          onChange={(e) => handleChangeImage(e)}
-        />
-        {values.car_img && (
-          <Image
-            src={values?.car_img}
-            className='sm:p-10 object-contain z-20'
-            alt='Image'
-            fill
+      <div className='flex-center'>
+        <div className='flex-start form_image-container'>
+          <label htmlFor='poster' className='flex-center form_image-label'>
+            {!values.car_img && "Choose a poster for your Car"}
+          </label>
+          <input
+            id='car_img'
+            type='file'
+            accept='car_img/*'
+            required={type === "create" ? true : false}
+            className='form_image-input'
+            onChange={(e) => handleChangeImage(e)}
           />
-        )}
+          {values.car_img && (
+            <Image
+              src={values?.car_img}
+              className='sm:p-10 object-contain z-20'
+              alt='Image'
+              fill
+            />
+          )}
+        </div>
       </div>
-      {inputs.map((input) => (
-        <FormField
-          key={input.id}
-          title={input.title}
-          placeholder={input.placeholer}
-          name={input.name}
-          type={input.type}
-          value={input.value}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          errorMessage={input.errorMessage}
-          touched={input.touched}
-        />
-      ))}
-      <div className='flexStart !items-end w-full'>
+      <div className='grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-2 w-full'>
+        {inputs.map((input) => (
+          <FormField
+            key={input.id}
+            title={input.title}
+            placeholder={input.placeholer}
+            name={input.name}
+            type={input.type}
+            value={input.value}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            errorMessage={input.errorMessage}
+            touched={input.touched}
+          />
+        ))}
+      </div>
+      <div className='flex-center mt-8 w-full'>
         <CustomButton
           title={
             submitting

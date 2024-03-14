@@ -87,10 +87,13 @@ const Cars = () => {
                   className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'
                 >
                   <td className='p-4'>
-                    <img
-                      src={car?.car_img ? car.car_img : "/hero.png"}
-                      className='w-16 md:w-32 max-w-full max-h-full'
-                      alt='Apple Watch'
+                    <Image
+                      src={car?.car_img}
+                      alt={car?.make}
+                      width={130}
+                      height={75}
+                      priority
+                      className='object-contain rounded-md'
                     />
                   </td>
                   <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
@@ -123,47 +126,6 @@ const Cars = () => {
             </tbody>
           </table>
         </div>
-
-        {/* <div className='grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 pt-4 ml-4'>
-          {cars?.map((car) => (
-            <div className='car-card group min-w-80' key={car._id}>
-              <div className='car-card__content'>
-                <h2 className='car-card__content-title'>
-                  {car.make} {car.model}
-                </h2>
-              </div>
-
-              <p className='car-card__price'>
-                <span className='self-start text-[14px] font-semibold'>$</span>
-                {car.car_rent}
-                <span className='self-end text-[14px] font-medium'>/day</span>
-              </p>
-
-              <div className='car-card__image'>
-                <Image
-                  src='/hero.png'
-                  alt='car model'
-                  fill
-                  priority
-                  className='object-contain'
-                  sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1024px'
-                />
-              </div>
-
-              <div className='relative flex w-full '>
-                <div className='w-full'>
-                  <CustomButton
-                    title='Edit'
-                    containerStyles='w-full py-[16px] rounded-full bg-primary-blue '
-                    textStyles='text-white text-[14px] leading-[17px] font-bold'
-                    rightIcon='/right-arrow.svg'
-                    handleClick={() => handleEditClick(car)}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
         <EditCar
           modalUpdateIsOpen={modalUpdateIsOpen}
           closeModal={() => setModalUpdateIsOpen(false)}

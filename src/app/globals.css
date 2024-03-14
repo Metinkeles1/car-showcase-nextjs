@@ -27,7 +27,7 @@
 .flex-center {
   @apply flex items-center justify-center;
 }
-.flexStart {
+.flex-start {
   @apply flex items-center justify-start;
 }
 
@@ -37,10 +37,6 @@
 
 .custom-btn {
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
-}
-
-.flexStart {
-  @apply flex items-center justify-start;
 }
 
 /* END: General styles */
@@ -256,15 +252,17 @@
 
 /* Project Form */
 .form {
-  @apply flex flex-col w-full lg:pt-24 pt-12 gap-2 text-lg max-w-5xl mx-auto;
+  /* @apply flex flex-col w-full lg:pt-24 pt-12 gap-2 text-lg max-w-5xl mx-auto; */
+  @apply flex flex-col max-w-5xl mx-auto;
 }
 
 .form_image-container {
-  @apply w-full lg:min-h-[400px] min-h-[200px] relative;
+  /* @apply w-full lg:min-h-[250px] min-h-[200px] relative; */
+  @apply min-w-96 lg:min-h-[250px] min-h-[200px] relative mt-2;
 }
 
 .form_image-label {
-  @apply z-10 text-center w-full h-full p-20 text-gray-100 border-2 border-gray-50 border-dashed;
+  @apply z-10 text-center w-full h-full p-28 text-gray-600 border-2 border-gray-100 border-dashed;
 }
 
 .form_image-input {
