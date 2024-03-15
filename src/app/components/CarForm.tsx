@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { CarProps, carsGetProps } from "./types";
-import { FormField, CustomButton } from "@/components";
+import { FormField, CustomButton, SearchManufacturer } from "@/components";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { carSchema } from "@/schema/carSchema";
+import { fetchCars } from "@/utils";
 
 type Props = {
   type: string;
@@ -19,6 +20,9 @@ type Props = {
 const CarForm = ({ type, car, getCars }: Props) => {
   const router = useRouter();
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [allCars, setAllCars] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [manufacturer, setManufacturer] = useState("");
   const [form, setForm] = useState<FormState>({
     car_img: car?.car_img || "",
     city_mpg: car?.city_mpg || 0,
@@ -35,6 +39,30 @@ const CarForm = ({ type, car, getCars }: Props) => {
     year: car?.year || 0,
     car_rent: car?.car_rent || 0,
   });
+
+  const [searchManufacturer, setSearchManufacturer] = useState("");
+
+  const getCarsApi = () => {
+    setLoading(true);
+    fetchCars({
+      manufacturer: manufacturer || "",
+    })
+      .then((result) => {
+        setAllCars(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getCarsApi();
+  }, [manufacturer]);
+
+  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   const handleStateChange = (fieldName: keyof FormState, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
@@ -304,6 +332,14 @@ const CarForm = ({ type, car, getCars }: Props) => {
           />
         ))}
       </div>
+
+      <div>
+        <SearchManufacturer
+          selected={searchManufacturer}
+          setSelected={setSearchManufacturer}
+        />
+      </div>
+
       <div className='flex-center mt-8 w-full'>
         <CustomButton
           title={
