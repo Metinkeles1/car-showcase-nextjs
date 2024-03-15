@@ -54,8 +54,8 @@ const Cars = () => {
       </div>
       <div className='max-h-[470px] overflow-y-auto'>
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg mx-4'>
-          <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-            <thead className='text-xs  uppercase text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+          <table className='w-full text-sm text-left rtl:text-right text-gray-500 '>
+            <thead className='text-xs  uppercase text-white  bg-primary-blue '>
               <tr>
                 <th scope='col' className='px-16 py-3'>
                   <span className='sr-only'>Image</span>
@@ -84,7 +84,7 @@ const Cars = () => {
               {cars.map((car) => (
                 <tr
                   key={car._id}
-                  className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'
+                  className='bg-white border-b  hover:bg-gray-200 '
                 >
                   <td className='p-4'>
                     <Image
@@ -96,19 +96,19 @@ const Cars = () => {
                       className='object-contain rounded-md'
                     />
                   </td>
-                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                  <td className='px-6 py-4 font-semibold text-gray-900 '>
                     {car.make} {car.model}
                   </td>
-                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                  <td className='px-6 py-4 font-semibold text-gray-900 '>
                     {car.year}
                   </td>
-                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                  <td className='px-6 py-4 font-semibold text-gray-900 '>
                     {car.car_class}
                   </td>
-                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                  <td className='px-6 py-4 font-semibold text-gray-900 '>
                     {car.fuel_type}
                   </td>
-                  <td className='px-6 py-4 font-semibold text-gray-900 dark:text-white'>
+                  <td className='px-6 py-4 font-semibold text-gray-900 '>
                     ${car.car_rent}
                   </td>
 
