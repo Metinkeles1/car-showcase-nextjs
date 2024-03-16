@@ -84,7 +84,7 @@ const Cars = () => {
               {cars.map((car) => (
                 <tr
                   key={car._id}
-                  className='bg-white border-b  hover:bg-gray-200 '
+                  className='bg-white border-b  hover:bg-gray-300 '
                 >
                   <td className='p-4'>
                     <Image
