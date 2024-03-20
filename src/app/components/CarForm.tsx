@@ -9,20 +9,20 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { carSchema } from "@/schema/carSchema";
-import { fetchCars } from "@/utils";
 
 type Props = {
   type: string;
   car?: CarProps;
   getCars: carsGetProps;
+  closeModal: () => void;
 };
 
-const CarForm = ({ type, car, getCars }: Props) => {
+const CarForm = ({ type, car, getCars, closeModal }: Props) => {
   const router = useRouter();
+  const [isNewImageSelected, setIsNewImageSelected] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [allCars, setAllCars] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [manufacturer, setManufacturer] = useState("");
+  const [searchManufacturer, setSearchManufacturer] = useState(car?.make);
+
   const [form, setForm] = useState<FormState>({
     car_img: car?.car_img || "",
     city_mpg: car?.city_mpg || 0,
@@ -40,29 +40,9 @@ const CarForm = ({ type, car, getCars }: Props) => {
     car_rent: car?.car_rent || 0,
   });
 
-  const [searchManufacturer, setSearchManufacturer] = useState("");
-
-  const getCarsApi = () => {
-    setLoading(true);
-    fetchCars({
-      manufacturer: manufacturer || "",
-    })
-      .then((result) => {
-        setAllCars(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
   };
-
-  useEffect(() => {
-    getCarsApi();
-  }, [manufacturer]);
-
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   const handleStateChange = (fieldName: keyof FormState, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
@@ -78,6 +58,8 @@ const CarForm = ({ type, car, getCars }: Props) => {
 
       return;
     }
+
+    setIsNewImageSelected(true);
 
     const reader = new FileReader();
 
@@ -97,9 +79,13 @@ const CarForm = ({ type, car, getCars }: Props) => {
 
     setSubmitting(true);
 
+    if (searchManufacturer.trim() === "") {
+      return alert("Please provide some input");
+    }
+
     try {
       let updatedImageUrl = car?.car_img || "";
-      if (values.car_img) {
+      if (values.car_img && isNewImageSelected) {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dtpwumy30/image/upload",
           data
@@ -107,7 +93,11 @@ const CarForm = ({ type, car, getCars }: Props) => {
         updatedImageUrl = uploadRes.data.url;
       }
 
-      const postData = { ...values, car_img: updatedImageUrl };
+      const postData = {
+        make: searchManufacturer,
+        ...values,
+        car_img: updatedImageUrl,
+      };
 
       if (type === "create") {
         const res = await axios.post(
@@ -117,6 +107,7 @@ const CarForm = ({ type, car, getCars }: Props) => {
         if (res.status === 201) {
           toast.success("Car Added Successfully");
           getCars();
+          closeModal();
         }
       }
       if (type === "edit") {
@@ -128,6 +119,7 @@ const CarForm = ({ type, car, getCars }: Props) => {
         if (res.status === 200) {
           toast.success("Updated Car Successfully");
           getCars();
+          closeModal();
         }
       }
     } catch (err) {
@@ -155,16 +147,16 @@ const CarForm = ({ type, car, getCars }: Props) => {
   });
 
   const inputs = [
-    {
-      id: 1,
-      name: "make",
-      title: "Make",
-      type: "text",
-      placeholder: "Enter Make",
-      value: values.make,
-      errorMessage: errors.make,
-      touched: touched.make,
-    },
+    // {
+    //   id: 1,
+    //   name: "make",
+    //   title: "Make",
+    //   type: "text",
+    //   placeholder: "Enter Make",
+    //   value: values.make,
+    //   errorMessage: errors.make,
+    //   touched: touched.make,
+    // },
     {
       id: 2,
       name: "model",
@@ -317,6 +309,18 @@ const CarForm = ({ type, car, getCars }: Props) => {
         </div>
       </div>
       <div className='grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-2 w-full'>
+        <div>
+          <SearchManufacturer
+            selected={searchManufacturer}
+            setSelected={setSearchManufacturer}
+          />
+          {/* <button
+          onClick={handleSearch}
+          className='bg-primary-blue p-4 rounded-full'
+        >
+          search
+        </button> */}
+        </div>
         {inputs.map((input) => (
           <FormField
             key={input.id}
@@ -331,13 +335,6 @@ const CarForm = ({ type, car, getCars }: Props) => {
             touched={input.touched}
           />
         ))}
-      </div>
-
-      <div>
-        <SearchManufacturer
-          selected={searchManufacturer}
-          setSelected={setSearchManufacturer}
-        />
       </div>
 
       <div className='flex-center mt-8 w-full'>
