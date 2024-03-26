@@ -12,6 +12,7 @@ import {
 } from "./components";
 import { fetchCars } from "./utils";
 import { fuels, yearsOfProduction } from "./constants";
+import axios from "axios";
 
 export default function Home({ searchParams }: HomeProps) {
   const [allCars, setAllCars] = useState([]);
@@ -22,29 +23,42 @@ export default function Home({ searchParams }: HomeProps) {
   const [year, setYear] = useState(2022);
   const [limit, setLimit] = useState(10);
 
-  const getCars = () => {
-    setLoading(true);
-    fetchCars({
-      manufacturer: manufacturer || "",
-      year: year || 2022,
-      fuel: fuel || "",
-      limit: limit || 10,
-      model: model || "",
-    })
-      .then((result) => {
-        setAllCars(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  // const [cars, setCars] = useState([]);
+
+  // const getCars = () => {
+  //   setLoading(true);
+  //   fetchCars({
+  //     manufacturer: manufacturer || "",
+  //     year: year || 2022,
+  //     fuel: fuel || "",
+  //     limit: limit || 10,
+  //     model: model || "",
+  //   })
+  //     .then((result) => {
+  //       setAllCars(result);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
+
+  const getCars = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/car`
+      );
+      setAllCars(response.data);
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
   };
 
   useEffect(() => {
     getCars();
-  }, [fuel, year, limit, manufacturer, model]);
+  }, []);
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
@@ -78,6 +92,10 @@ export default function Home({ searchParams }: HomeProps) {
         {allCars.length > 0 ? (
           <section>
             <div className='home__cars-wrapper'>
+              {/* {allCars?.map((car, index) => (
+                <CarCard car={car} key={index} />
+              ))} */}
+
               {allCars?.map((car, index) => (
                 <CarCard car={car} key={index} />
               ))}
