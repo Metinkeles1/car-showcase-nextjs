@@ -42,10 +42,6 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
     car_rent: car?.car_rent || 0,
   });
 
-  // const handleStateChange = (fieldName: keyof FormState, value: string) => {
-  //   setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
-  // };
-
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -85,8 +81,6 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
       return alert("Please provide some input");
     }
 
-    console.log(searchManufacturer);
-
     try {
       let updatedImageUrl = car?.car_img || "";
       if (values.car_img && isNewImageSelected) {
@@ -96,7 +90,6 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
         );
         updatedImageUrl = uploadRes.data.url;
       }
-      // setFieldValue("make", searchManufacturer);
 
       const postData = {
         make: searchManufacturer,
@@ -152,16 +145,6 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
   });
 
   const inputs = [
-    // {
-    //   id: 1,
-    //   name: "make",
-    //   title: "Make",
-    //   type: "text",
-    //   placeholder: "Enter Make",
-    //   value: values.make,
-    //   errorMessage: errors.make,
-    //   touched: touched.make,
-    // },
     {
       id: 2,
       name: "model",
@@ -285,11 +268,7 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
   ];
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      // className='grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-2 w-full'
-      className='form'
-    >
+    <form onSubmit={handleSubmit} className='form'>
       <div className='flex-center'>
         <div className='flex-start form_image-container'>
           <label htmlFor='poster' className='flex-center form_image-label'>
