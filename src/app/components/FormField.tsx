@@ -45,7 +45,7 @@ const FormField = ({
           value={value}
           placeholder={placeholder}
           required
-          className={`w-full outline-0 bg-light-white-100 rounded-xl p-4 border ${
+          className={`w-full border h-[48px]  p-4 rounded-lg max-sm:rounded-full bg-light-white outline-none cursor-pointer text-sm ${
             touched && errorMessage ? "border-danger" : ""
           }`}
           onChange={onChange}
