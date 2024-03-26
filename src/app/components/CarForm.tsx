@@ -21,7 +21,9 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
   const router = useRouter();
   const [isNewImageSelected, setIsNewImageSelected] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [searchManufacturer, setSearchManufacturer] = useState(car?.make);
+  const [searchManufacturer, setSearchManufacturer] = useState<string>(
+    car?.make || ""
+  );
 
   const [form, setForm] = useState<FormState>({
     car_img: car?.car_img || "",
@@ -40,13 +42,9 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
     car_rent: car?.car_rent || 0,
   });
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
-  const handleStateChange = (fieldName: keyof FormState, value: string) => {
-    setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
-  };
+  // const handleStateChange = (fieldName: keyof FormState, value: string) => {
+  //   setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
+  // };
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -72,6 +70,10 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
     };
   };
 
+  useEffect(() => {
+    setFieldValue("make", searchManufacturer);
+  }, [searchManufacturer]);
+
   const onSubmit = async () => {
     const data = new FormData();
     data.append("file", values.car_img);
@@ -83,6 +85,8 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
       return alert("Please provide some input");
     }
 
+    console.log(searchManufacturer);
+
     try {
       let updatedImageUrl = car?.car_img || "";
       if (values.car_img && isNewImageSelected) {
@@ -92,6 +96,7 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
         );
         updatedImageUrl = uploadRes.data.url;
       }
+      // setFieldValue("make", searchManufacturer);
 
       const postData = {
         make: searchManufacturer,
@@ -309,23 +314,20 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
         </div>
       </div>
       <div className='grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-2 w-full'>
-        <div>
-          <SearchManufacturer
-            selected={searchManufacturer}
-            setSelected={setSearchManufacturer}
-          />
-          {/* <button
-          onClick={handleSearch}
-          className='bg-primary-blue p-4 rounded-full'
-        >
-          search
-        </button> */}
+        <div className='mt-3'>
+          <label className='w-full text-black font-bold'>Make</label>
+          <div className='mt-2'>
+            <SearchManufacturer
+              selected={searchManufacturer}
+              setSelected={setSearchManufacturer}
+            />
+          </div>
         </div>
         {inputs.map((input) => (
           <FormField
             key={input.id}
             title={input.title}
-            placeholder={input.placeholer}
+            placeholder={input.placeholder}
             name={input.name}
             type={input.type}
             value={input.value}
