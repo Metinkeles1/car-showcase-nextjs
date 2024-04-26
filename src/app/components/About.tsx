@@ -6,7 +6,11 @@ import { LuHeartHandshake } from "react-icons/lu";
 
 const About = () => {
   return (
-    <div className='container mx-auto px-4 xl:px-0'>
+    // <section id='about' className='w-full h-screen bg-primary-blue'>
+    //   <div className='bg-red-900 w-full h-20'></div>
+    //   <div className='bg-black w-full h-20'></div>
+    // </section>
+    <div id='about' className='container mx-auto px-4 xl:px-0 pt-16'>
       <h1 className='text-4xl font-semibold text-center my-8'>
         About Our Car Sales
       </h1>
@@ -21,8 +25,8 @@ const About = () => {
           <Image
             src='/about-car-blue-3.png'
             alt='about'
-            layout='fill'
-            objectFit='contain'
+            fill
+            className='object-contain'
           />
         </div>
       </div>

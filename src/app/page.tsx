@@ -22,6 +22,8 @@ export default function Home({ searchParams }: HomeProps) {
   const [fuel, setFuel] = useState("");
   const [year, setYear] = useState(2022);
   const [limit, setLimit] = useState(10);
+  const [carCount, setCarCount] = useState(0);
+  
 
   // const [cars, setCars] = useState([]);
 
@@ -44,6 +46,9 @@ export default function Home({ searchParams }: HomeProps) {
   //       setLoading(false);
   //     });
   // };
+  useEffect(() => {
+    getCars();
+  }, []);
 
   const getCars = async () => {
     try {
@@ -51,20 +56,28 @@ export default function Home({ searchParams }: HomeProps) {
         `${process.env.NEXT_PUBLIC_API_URL}/car`
       );
       setAllCars(response.data);
+      setCarCount(response.data.length);
     } catch (error) {
       console.error("Error fetching cars:", error);
     }
   };
 
-  useEffect(() => {
-    getCars();
-  }, []);
+  // useEffect(() => {
+  //   const filteredCars = allCars.filter((car) => {
+  //     return car.make.toLowerCase().includes(manufacturer.toLowerCase());
+  //   });
+
+  //   setAllCars(filteredCars);
+  //   // getCars();
+  // }, [manufacturer]);
+  // // console.log(allCars.filter((car) => car.make.includes(manufacturer)));
+  // console.log(allCars);
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
     <main className='overflow-hidden'>
-      <Hero />
+      <Hero carCount={carCount} />
 
       <div className='mt-12 padding-x padding-y max-width' id='discover'>
         <div className='home__text-container'>
