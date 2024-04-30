@@ -5,10 +5,10 @@ import Image from "next/image";
 import { CustomButton } from "../components";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
+import { Link as ScrollLink } from "react-scroll";
+import CountUp from "react-countup";
 
 const Hero = ({ carCount }: int) => {
-  const handleScroll = () => {};
-
   return (
     <div className='hero'>
       <div className='flex-1 pt-36 padding-x'>
@@ -39,11 +39,18 @@ const Hero = ({ carCount }: int) => {
           whileInView={"show"}
           viewport={{ once: false, amount: 0.7 }}
         >
-          <CustomButton
-            title='Explore Cars'
-            containerStyles='bg-primary-blue text-white rounded-full mt-10'
-            handleClick={handleScroll}
-          />
+          <ScrollLink
+            to='cars'
+            spy={true}
+            smooth={true}
+            offset={-64}
+            duration={500}
+          >
+            <CustomButton
+              title='Explore Cars'
+              containerStyles='bg-primary-blue text-white rounded-full mt-10'
+            />
+          </ScrollLink>
         </motion.div>
       </div>
       {/* <div className='hero__image-container'>
@@ -71,7 +78,13 @@ const Hero = ({ carCount }: int) => {
             className='flex items-center justify-center bg-primary-blue rounded-full rounded-br-none text-primary-blue-100'
           >
             <div className='relative'>
-              <h1 className='hero__title'>{carCount + 60}</h1>
+              <CountUp
+                className='hero__title'
+                start={30}
+                end={carCount + 60}
+                duration={3}
+                delay={1}
+              />
               <span className='absolute lg:top-3 top-0 lg:left-20 left-14 text-xl'>
                 +
               </span>
