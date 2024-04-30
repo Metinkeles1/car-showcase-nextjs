@@ -54,12 +54,13 @@ const CarGrid = ({ allCars, loading }) => {
           <div className='home__cars-wrapper'>
             {allCars?.map((car, index) => (
               <motion.div
+                key={index}
                 variants={fadeIn("up", 0.2)}
                 initial='hidden'
                 whileInView={"show"}
                 viewport={{ once: false, amount: 0.4 }}
               >
-                <CarCard car={car} key={index} />
+                <CarCard car={car} />
               </motion.div>
             ))}
           </div>
