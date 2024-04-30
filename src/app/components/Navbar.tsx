@@ -1,5 +1,7 @@
 "use client";
-import { Link } from "react-scroll";
+import Link from "next/link";
+import { Link as ScrollLink } from "react-scroll";
+
 import Image from "next/image";
 
 import CustomButton from "./CustomButton";
@@ -9,10 +11,8 @@ const Navbar = () => {
     <header className='w-full fixed top-0 left-0 z-50 bg-white shadow '>
       <nav className='max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 '>
         <Link
-          to='/'
-          spy={true}
-          smooth={true}
-          className='flex justify-center items-center'
+          href='/'
+          className='flex justify-center items-center cursor-pointer'
         >
           <Image
             src='/navbar-icon.png'
@@ -21,26 +21,40 @@ const Navbar = () => {
             height={18}
             className='object-contain'
           />
-          <h1 className='2xl:text-[24px] sm:text-[16px] text-[16px] font-extrabold ml-2'>
+          <h1 className=' 2xl:text-[24px] sm:text-[16px] text-[16px] font-extrabold ml-2'>
             Auto Select
           </h1>
         </Link>
 
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center gap-3'>
           {/* <CustomButton
             title='Sıgn In'
             btnType='button'
             containerStyles='text-primary-blue rounded-full min-w-[130px]'
           /> */}
 
-          <Link
+          <ScrollLink
+            activeClass='active'
+            to='cars'
+            spy={true}
+            smooth={true}
+            offset={-64}
+            duration={500}
+            className='cursor-pointer font-semibold rounded-full hover:text-primary-blue'
+          >
+            Cars
+          </ScrollLink>
+          <ScrollLink
+            activeClass='active'
             to='about'
             spy={true}
             smooth={true}
-            className='cursor-pointer text-primary-blue rounded-full '
+            offset={-64}
+            duration={500}
+            className='cursor-pointer font-semibold rounded-full hover:text-primary-blue'
           >
-            about
-          </Link>
+            About
+          </ScrollLink>
         </div>
       </nav>
     </header>
