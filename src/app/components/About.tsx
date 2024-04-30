@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import { GiCarKey } from "react-icons/gi";
 import { MdOutlineShowChart } from "react-icons/md";
 import { LuHeartHandshake } from "react-icons/lu";
+import { motion } from "framer-motion";
+import { fadeIn } from "../variants.ts";
 
 const About = () => {
   return (
@@ -10,29 +13,61 @@ const About = () => {
     //   <div className='bg-red-900 w-full h-20'></div>
     //   <div className='bg-black w-full h-20'></div>
     // </section>
-    <div id='about' className='container mx-auto px-4 xl:px-0 pt-16'>
-      <h1 className='text-4xl font-semibold text-center my-8'>
+    <div id='about' className='container mx-auto px-4 xl:px-0 pt-4'>
+      <motion.div
+        variants={fadeIn("up", 0.2)}
+        initial='hidden'
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.7 }}
+        className='text-4xl font-semibold text-center my-8'
+      >
         About Our Car Sales
-      </h1>
-      <p className='text-lg text-gray-700 text-center mb-8'>
+      </motion.div>
+      <motion.p
+        variants={fadeIn("up", 0.2)}
+        initial='hidden'
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.7 }}
+        className='text-lg text-gray-700 text-center mb-8'
+      >
         At Our Car Sales, we prioritize your car buying experience with
         top-quality vehicles and exceptional services. Contact us today to find
         your dream car.
-      </p>
+      </motion.p>
 
-      <div className='flex justify-center mb-12'>
-        <div className='relative w-full h-96'>
+      <motion.div
+        variants={fadeIn("left", 0.2)}
+        initial='hidden'
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.7 }}
+        className='flex justify-center mb-12'
+      >
+        <div className='relative '>
+          {/* <Image
+              src='/about-car-blue-3.png'
+              alt='about'
+              fill
+              className='object-contain'
+            /> */}
+
           <Image
             src='/about-car-blue-3.png'
             alt='about'
-            fill
+            width={850}
+            height={850}
             className='object-contain'
           />
         </div>
-      </div>
+      </motion.div>
 
       <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-16 gap-10 xl:px-28'>
-        <div className='flex flex-col items-center justify-center'>
+        <motion.div
+          variants={fadeIn("down", 0.2)}
+          initial='hidden'
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.7 }}
+          className='flex flex-col items-center justify-center'
+        >
           <GiCarKey className='text-4xl text-primary-blue mb-4' />
           <div className='text-center lg:h-48'>
             <h2 className='text-xl font-semibold mb-2'>Browse Our Cars</h2>
@@ -41,8 +76,14 @@ const About = () => {
               vehicle to suit your needs and preferences.
             </p>
           </div>
-        </div>
-        <div className='flex flex-col items-center justify-center'>
+        </motion.div>
+        <motion.div
+          variants={fadeIn("down", 0.2)}
+          initial='hidden'
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.7 }}
+          className='flex flex-col items-center justify-center'
+        >
           <MdOutlineShowChart className='text-4xl text-primary-blue mb-4' />
           <div className='text-center lg:h-48'>
             <h2 className='text-xl font-semibold mb-2'>
@@ -54,8 +95,14 @@ const About = () => {
               solution.
             </p>
           </div>
-        </div>
-        <div className='flex flex-col items-center justify-center'>
+        </motion.div>
+        <motion.div
+          variants={fadeIn("down", 0.2)}
+          initial='hidden'
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.7 }}
+          className='flex flex-col items-center justify-center'
+        >
           <LuHeartHandshake className='text-4xl text-primary-blue mb-4' />
           <div className='text-center lg:h-48'>
             <h2 className='text-xl font-semibold mb-2'>
@@ -66,7 +113,7 @@ const About = () => {
               personalized service and a positive buying journey.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

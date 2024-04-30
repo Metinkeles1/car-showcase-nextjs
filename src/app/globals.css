@@ -39,6 +39,10 @@
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
 
+.active {
+  @apply text-primary-blue-100 bg-primary-blue p-2 font-bold hover:!text-black;
+}
+
 /* END: General styles */
 
 /* START: Hero styles */
