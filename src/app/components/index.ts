@@ -15,6 +15,7 @@ import Cars from "./admin/Cars";
 import CreateCar from "./admin/CreateCar";
 import EditCar from "./admin/EditCar";
 import CarForm from "./CarForm";
+import CarGrid from "./CarGrid";
 
 export {
   Hero,
@@ -32,6 +33,7 @@ export {
   FormField,
   CreateCar,
   EditCar,
+  CarGrid,
   Cars,
   CarForm,
 };
