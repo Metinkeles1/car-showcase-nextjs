@@ -5,6 +5,7 @@ import { CarProps } from "@/types";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
+import { CustomButton } from "../components";
 
 interface CarDetailsProps {
   isOpen: boolean;
@@ -72,40 +73,48 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                         />
                       </div>
                       <div className='flex gap-3'>
-                        <div className='flex-1 relative w-full lg:h-32 h-24 bg-primary-blue-100 rounded-lg'>
+                        <div className='car-details__image-container'>
                           <Image
                             src='/ford-explorer.png'
                             alt='car model'
                             fill
                             priority
-                            className='object-contain cursor-pointer'
-                            onClick={() =>
-                              setCurrentImage("/ford-explorer.png")
-                            }
+                            className={`car-details__image-item ${
+                              currentImage === "/ford-explorer.png"
+                                ? "bg-primary-blue rounded-3xl"
+                                : ""
+                            }`}
+                            onClick={() => handleClick("/ford-explorer.png")}
                           />
                         </div>
 
-                        <div className='flex-1 relative w-full lg:h-32 h-24 bg-primary-blue-100 rounded-lg'>
+                        <div className='car-details__image-container'>
                           <Image
                             src='/honda-civic.png'
                             alt='car model'
                             fill
                             priority
-                            className='object-contain cursor-pointer'
-                            onClick={() => setCurrentImage("/honda-civic.png")}
+                            className={`car-details__image-item ${
+                              currentImage === "/honda-civic.png"
+                                ? "bg-primary-blue rounded-3xl"
+                                : ""
+                            }`}
+                            onClick={() => handleClick("/honda-civic.png")}
                           />
                         </div>
 
-                        <div className='flex-1 relative w-full lg:h-32 h-24 bg-primary-blue-100 rounded-lg'>
+                        <div className='car-details__image-container'>
                           <Image
                             src='/toyota-pirius.png'
                             alt='car model'
                             fill
                             priority
-                            className='object-contain cursor-pointer'
-                            onClick={() =>
-                              setCurrentImage("/toyota-pirius.png")
-                            }
+                            className={`car-details__image-item ${
+                              currentImage === "/toyota-pirius.png"
+                                ? "bg-primary-blue rounded-3xl "
+                                : ""
+                            }`}
+                            onClick={() => handleClick("/toyota-pirius.png")}
                           />
                         </div>
                       </div>
@@ -130,6 +139,12 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                               </p>
                             </div>
                           ))}
+                      </div>
+                      <div className='flex justify-center'>
+                        <CustomButton
+                          title='Reservation Car'
+                          containerStyles='bg-primary-blue text-white rounded-full mt-2'
+                        />
                       </div>
                     </div>
                   </div>
