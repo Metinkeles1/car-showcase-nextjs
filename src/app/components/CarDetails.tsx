@@ -6,6 +6,8 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { CustomButton } from "../components";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface CarDetailsProps {
   isOpen: boolean;
@@ -15,7 +17,7 @@ interface CarDetailsProps {
 
 const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
   const [currentImage, setCurrentImage] = useState(car?.car_img);
-
+  const router = useRouter();
   const handleClick = (image) => {
     setCurrentImage(image);
   };
@@ -121,7 +123,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                     </div>
                     <div className='flex-1 flex flex-col gap-2'>
                       <h2 className='font-semibold text-xl capitalize flex justify-center'>
-                        {car.make} {car.model}
+                        {car?.make} {car?.model}
                       </h2>
                       <div className='mt-3 flex flex-wrap gap-4'>
                         {Object.entries(car)
@@ -141,10 +143,12 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                           ))}
                       </div>
                       <div className='flex justify-center'>
-                        <CustomButton
-                          title='Reservation Car'
-                          containerStyles='bg-primary-blue text-white rounded-full mt-2'
-                        />
+                        <Link href={`/reservation/${car._id}`}>
+                          <CustomButton
+                            title='Reservation Car'
+                            containerStyles='bg-primary-blue text-white rounded-full mt-2'
+                          />
+                        </Link>
                       </div>
                     </div>
                   </div>
