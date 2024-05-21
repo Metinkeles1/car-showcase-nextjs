@@ -14,13 +14,16 @@ const Navbar = () => {
           href='/'
           className='flex justify-center items-center cursor-pointer'
         >
-          <Image
-            src='/navbar-icon.png'
-            alt='Auto Select Logo'
-            width={40}
-            height={18}
-            className='object-contain'
-          />
+          <div className='flex justify-center items-center w-10 h-auto '>
+            <Image
+              src='/navbar-icon.png'
+              alt='Auto Select Logo'
+              width='0'
+              height='0'
+              sizes='100vw'
+              className='w-full h-auto'
+            />
+          </div>
           <h1 className=' 2xl:text-[24px] sm:text-[16px] text-[16px] font-extrabold ml-2'>
             Auto Select
           </h1>
