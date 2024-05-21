@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
-  title: "Car Hub",
+  title: "Auto Select",
   description: "Discover the best cars in the world.",
 };
 
