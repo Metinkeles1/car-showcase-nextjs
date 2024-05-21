@@ -33,6 +33,8 @@ module.exports = {
       backgroundImage: {
         pattern: "url('/pattern.png')",
         "hero-bg": "url('/hero-bg.png')",
+        "reservation-bg":
+          "linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)), url('/reservation-bg.jpg')",
       },
     },
   },
