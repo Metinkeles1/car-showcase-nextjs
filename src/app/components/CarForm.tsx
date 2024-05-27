@@ -114,7 +114,7 @@ const CarForm = ({ type, car, getCars, closeModal }: Props) => {
           postData
         );
 
-        if (res.status === 200) {
+        if (res.status === 201) {
           toast.success("Updated Car Successfully");
           getCars();
           closeModal();

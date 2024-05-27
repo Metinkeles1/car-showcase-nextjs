@@ -13,9 +13,15 @@ interface CarDetailsProps {
   isOpen: boolean;
   closeModal: () => void;
   car: CarProps;
+  currentRoute: string;
 }
 
-const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
+const CarDetails = ({
+  isOpen,
+  closeModal,
+  car,
+  currentRoute,
+}: CarDetailsProps) => {
   const [currentImage, setCurrentImage] = useState(car?.car_img);
   const router = useRouter();
   const handleClick = (image) => {
@@ -142,14 +148,16 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                             </div>
                           ))}
                       </div>
-                      <div className='flex justify-center'>
-                        <Link href={`/reservation/${car._id}`}>
-                          <CustomButton
-                            title='Reservation Car'
-                            containerStyles='bg-primary-blue text-white rounded-full mt-2'
-                          />
-                        </Link>
-                      </div>
+                      {currentRoute !== "reservation" ? (
+                        <div className='flex justify-center'>
+                          <Link href={`/reservation/${car._id}`}>
+                            <CustomButton
+                              title='Reservation Car'
+                              containerStyles='bg-primary-blue text-white rounded-full mt-2'
+                            />
+                          </Link>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </Dialog.Panel>
