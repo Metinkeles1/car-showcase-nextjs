@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import mongoose from "mongoose";
 
 export interface CustomButtonProps {
   title: string;
@@ -63,4 +64,12 @@ export interface ShowMoreProps {
 export interface SearchManuFacturerProps {
   manufacturer: string;
   setManuFacturer: (manufacturer: string) => void;
+}
+
+export interface ReservationProps {
+  fullName: string;
+  mail: string;
+  phone: string;
+  message: string;
+  car: mongoose.Schema.Types.ObjectId;
 }

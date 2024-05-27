@@ -151,11 +151,14 @@ const Reservation = ({ params }: any) => {
           </div>
         </div>
       </div>
-      {/* <CarDetails
-        isOpen={isOpen}
-        closeModal={() => setIsOpen(false)}
-        car={car}
-      /> */}
+      {car && (
+        <CarDetails
+          isOpen={isOpen}
+          closeModal={() => setIsOpen(false)}
+          car={car}
+          currentRoute='reservation'
+        />
+      )}
     </div>
 
     //* design 2
