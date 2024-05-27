@@ -12,6 +12,7 @@ import About from "./About";
 import AuthProviders from "./AuthProviders";
 import FormField from "./FormField";
 import Cars from "./admin/Cars";
+import Reservation from "./admin/Reservation";
 import CreateCar from "./admin/CreateCar";
 import EditCar from "./admin/EditCar";
 import CarForm from "./CarForm";
@@ -36,4 +37,5 @@ export {
   CarGrid,
   Cars,
   CarForm,
+  Reservation,
 };

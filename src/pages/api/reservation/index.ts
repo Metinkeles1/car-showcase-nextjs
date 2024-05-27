@@ -19,10 +19,7 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const reservations = await collection.find({}).toArray();
-      res.status(200).json({
-        message: "Reservations fetched successfully",
-        data: reservations,
-      });
+      res.status(200).json(reservations);
     } catch (error) {
       console.error("Error fetching reservations:", error);
       res.status(500).json({ message: "Internal Server Error" });
