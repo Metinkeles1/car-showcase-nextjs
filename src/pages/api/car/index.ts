@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Cars from "@/models/Cars";
 import clientPromise from "@/lib/mongodb";
+import { CarProps } from "@/types";
 
 type ResponseData = {
   message: string;
-  data?: CarProps;
+  data?: CarProps | CarProps[];
 };
 
 export default async function handler(
@@ -25,42 +26,9 @@ export default async function handler(
     }
   } else if (req.method === "POST") {
     try {
-      const {
-        car_img,
-        city_mpg,
-        car_class,
-        combination_mpg,
-        cylinders,
-        displacement,
-        drive,
-        fuel_type,
-        highway_mpg,
-        make,
-        model,
-        transmission,
-        year,
-        car_rent,
-      } = req.body;
-
-      const newCar: CarProps = {
-        car_img,
-        city_mpg,
-        car_class,
-        combination_mpg,
-        cylinders,
-        displacement,
-        drive,
-        fuel_type,
-        highway_mpg,
-        make,
-        model,
-        transmission,
-        year,
-        car_rent,
-      };
-
-      await collection.insertOne(newCar);
-      res.status(201).json({ message: "Car added successfully" });
+      const newCarData: CarProps = req.body;
+      await collection.insertOne(newCarData);
+      res.status(201).json("Car added successfully");
     } catch (error) {
       console.error("Error adding car:", error);
       res.status(500).json({ message: "Internal Server Error" });

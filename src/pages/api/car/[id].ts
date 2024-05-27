@@ -1,11 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { ObjectId } from "mongodb"; // ObjectId için import ekledim
+import type { NextApiRequest, NextApiResponse } from "next";
+import Cars from "@/models/Cars";
 import clientPromise from "@/lib/mongodb";
-import { CarProps } from "@/types/index";
+import { ObjectId } from "mongodb";
+import { CarProps } from "@/types";
 
 type ResponseData = {
   message: string;
-  data?: CarProps;
+  data?: CarProps | CarProps[];
 };
 
 export default async function handler(
@@ -15,71 +16,51 @@ export default async function handler(
   const client = await clientPromise;
   const db = client.db();
   const collection = db.collection<CarProps>("cars");
-  const { id } = req.query;
-  const carId = typeof id === "string" ? new ObjectId(id) : null;
 
   if (req.method === "GET") {
     try {
-      const car = await collection.findOne({ _id: carId });
+      const carId = req.query.id;
+      if (!carId) {
+        res.status(400).json({ message: "Car ID is required" });
+        return;
+      }
 
+      const car = await collection.findOne({
+        _id: new ObjectId(carId as string),
+      });
       if (!car) {
-        return res.status(404).json({ message: "Car not found" });
+        res.status(404).json({ message: "Car not found" });
+        return;
       }
 
       res.status(200).json(car);
     } catch (error) {
       console.error("Error fetching car:", error);
-      res.status(500).json({ message: "Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   } else if (req.method === "PUT") {
     try {
-      const {
-        car_img,
-        city_mpg,
-        car_class,
-        combination_mpg,
-        cylinders,
-        displacement,
-        drive,
-        fuel_type,
-        highway_mpg,
-        make,
-        model,
-        transmission,
-        year,
-        car_rent,
-      } = req.body;
-      const updatedCar: CarProps = {
-        car_img,
-        city_mpg,
-        car_class,
-        combination_mpg,
-        cylinders,
-        displacement,
-        drive,
-        fuel_type,
-        highway_mpg,
-        make,
-        model,
-        transmission,
-        year,
-        car_rent,
-      };
+      const carId = req.query.id;
+      if (!carId) {
+        res.status(400).json({ message: "Car ID is required" });
+        return;
+      }
 
-      const result = await collection.updateOne(
-        { _id: carId },
-        { $set: updatedCar }
+      const updatedCarData: Partial<CarProps> = req.body;
+      const updatedCar = await collection.findOneAndUpdate(
+        { _id: new ObjectId(carId as string) },
+        { $set: updatedCarData },
+        { returnOriginal: false }
       );
 
-      if (result.modifiedCount === 0) {
-        return res.status(404).json({ message: "Car not found" });
+      if (!updatedCar) {
+        res.status(404).json({ message: "Car not found" });
+        return;
       }
-      res.status(200).json(updatedCar);
+      res.status(201).json("Car Updated successfully");
     } catch (error) {
       console.error("Error updating car:", error);
-      res.status(500).json({ message: "Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
-  } else {
-    res.status(405).json({ message: "Method Not Allowed" });
   }
 }
