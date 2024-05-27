@@ -12,12 +12,12 @@ import {
   FaCalendarAlt,
   FaBars,
 } from "react-icons/fa";
-import { RiEBike2Fill } from "react-icons/ri";
+import { RiEBike2Fill, RiCalendarEventFill } from "react-icons/ri";
 import { BiSolidCategory } from "react-icons/bi";
 import { IoIosMegaphone } from "react-icons/io";
 import { FaCar } from "react-icons/fa6";
 import Image from "next/image";
-import { Cars, CarForm } from "@/components";
+import { Cars, CarForm, Reservation } from "@/components";
 
 const Sidebar = () => {
   const [tabs, setTabs] = useState(0);
@@ -55,10 +55,10 @@ const Sidebar = () => {
               tabs === 1 && "bg-primary-blue text-white "
             }`}
           >
-            <RiEBike2Fill />
-            <button className='ml-1'>Orders</button>
+            <RiCalendarEventFill />
+            <button className='ml-1'>Reservations</button>
           </li>
-          <li
+          {/* <li
             onClick={() => setTabs(2)}
             className={`border-t-0 border w-full p-3 cursor-pointer hover:bg-primary-blue hover:text-white transition-all flex items-center justify-center ${
               tabs === 2 && "bg-primary-blue text-white "
@@ -66,8 +66,8 @@ const Sidebar = () => {
           >
             <BiSolidCategory />
             <button className='ml-1'>Categories</button>
-          </li>
-          <li
+          </li> */}
+          {/* <li
             onClick={() => setTabs(3)}
             className={`border-t-0 border w-full p-3 cursor-pointer hover:bg-primary-blue hover:text-white transition-all flex items-center justify-center ${
               tabs === 3 && "bg-primary-blue text-white"
@@ -102,12 +102,12 @@ const Sidebar = () => {
           >
             <FaWindowMaximize />
             <button className='ml-1'>Footer</button>
-          </li>
+          </li> */}
         </ul>
       </div>
 
       {tabs === 0 && <Cars />}
-      {tabs === 1 && <CarForm />}
+      {tabs === 1 && <Reservation />}
       {/*{tabs === 2 && <Category />}
       {tabs === 3 && <Campaigns />}
       {tabs === 4 && <About />}
