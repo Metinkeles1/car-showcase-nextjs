@@ -33,7 +33,7 @@ const SearchBar = ({ setManufacturer, setModel, setLimit }) => {
 
     setModel(searchModel);
     setManufacturer(searchManufacturer);
-    setLimit(10);
+    // setLimit(10);
   };
 
   return (

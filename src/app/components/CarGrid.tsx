@@ -1,12 +1,41 @@
 "use client";
-import React from "react";
-import { SearchBar, CustomFilter, CarCard, ShowMore } from "../components";
+import { useState, useEffect } from "react";
+import {
+  SearchBar,
+  CustomFilter,
+  CarCard,
+  ShowMore,
+  CustomButton,
+} from "../components";
 import Image from "next/image";
 import BeatLoader from "react-spinners/BeatLoader";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 
 const CarGrid = ({ allCars, loading }) => {
+  const [filteredCars, setFilteredCars] = useState<Car[]>([]);
+  const [manufacturer, setManufacturer] = useState<string>("");
+  const [model, setModel] = useState<string>("");
+
+  useEffect(() => {
+    const filtered = allCars.filter((car) =>
+      manufacturer && model
+        ? car.make.toLowerCase() === manufacturer.toLowerCase() &&
+          car.model.toLowerCase() === model.toLowerCase()
+        : manufacturer
+        ? car.make.toLowerCase() === manufacturer.toLowerCase()
+        : model
+        ? car.model.toLowerCase() === model.toLowerCase()
+        : true
+    );
+    setFilteredCars(filtered);
+  }, [manufacturer, model, allCars]);
+
+  const clearFilters = () => {
+    setModel("");
+    setManufacturer("");
+  };
+
   return (
     <div id='cars' className='mt-12 padding-x padding-y max-width'>
       <motion.div
@@ -27,13 +56,15 @@ const CarGrid = ({ allCars, loading }) => {
         viewport={{ once: false, amount: 0.7 }}
         className='home__filters'
       >
-        <SearchBar
-        // setManufacturer={setManufacturer}
-        // setModel={setModel}
-        // setLimit={setLimit}
-        />
+        <SearchBar setManufacturer={setManufacturer} setModel={setModel} />
 
         <div className='home__filter-container'>
+          <CustomButton
+            title='Clear Filters'
+            containerStyles='bg-primary-blue text-white rounded-full'
+            handleClick={clearFilters}
+            btnType='button'
+          />
           {/* <CustomFilter title='fuel' options={fuels} setFilter={setFuel} /> */}
           {/* <CustomFilter
             title='year'
@@ -49,10 +80,10 @@ const CarGrid = ({ allCars, loading }) => {
         </div>
       )}
 
-      {allCars.length > 0 ? (
+      {filteredCars.length > 0 ? (
         <section>
           <div className='home__cars-wrapper'>
-            {allCars?.map((car, index) => (
+            {filteredCars?.map((car, index) => (
               <motion.div
                 key={index}
                 variants={fadeIn("up", 0.2)}
@@ -75,7 +106,7 @@ const CarGrid = ({ allCars, loading }) => {
         !loading && (
           <div className='home__error-container'>
             <h2 className='text-black text-xl font-bold'>Oops, no results</h2>
-            <p>{allCars?.message}</p>
+            <p>{filteredCars?.message}</p>
           </div>
         )
       )}
