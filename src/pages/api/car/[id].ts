@@ -62,5 +62,34 @@ export default async function handler(
       console.error("Error updating car:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
+  } else if (req.method === "DELETE") {
+    try {
+      const carId = req.query.id as string;
+      if (!carId || !ObjectId.isValid(carId)) {
+        res.status(400).json({ message: "Invalid or missing Car ID" });
+        return;
+      }
+
+      const deletedCar = await collection.findOneAndDelete({
+        _id: new ObjectId(carId),
+      });
+
+      console.log(deletedCar);
+
+      if (!deletedCar) {
+        res.status(404).json({ message: "Car not found" });
+        return;
+      }
+
+      res
+        .status(200)
+        .json({ message: "Car deleted successfully", data: deletedCar.value });
+    } catch (error) {
+      console.error("Error deleting car:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  } else {
+    res.setHeader("Allow", ["GET", "PUT", "DELETE"]);
+    res.status(405).json({ message: `Method ${req.method} not allowed` });
   }
 }

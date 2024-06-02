@@ -7,6 +7,7 @@ import { CustomButton, CreateCar, EditCar } from "@/components";
 import { IoMdAdd } from "react-icons/io";
 import { CarProps } from "@/types/index";
 import { carsGetProps } from "@/types/index";
+import { toast } from "react-toastify";
 
 const Cars = () => {
   const [cars, setCars] = useState<Array>([]);
@@ -32,6 +33,21 @@ const Cars = () => {
   const handleEditClick = (car) => {
     setSelectedCar(car);
     setModalUpdateIsOpen(true);
+  };
+
+  const handleDeleteClick = async (carId: string) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/car/${carId}`
+      );
+      if (response.status === 200) {
+        toast.success("Car deleted successfully");
+        fetchData();
+      }
+    } catch (error) {
+      console.error("Error deleting car:", error);
+      toast.error("Error deleting car");
+    }
   };
 
   const getCars: carsGetProps = () => {
@@ -75,7 +91,7 @@ const Cars = () => {
                 <th scope='col' className='px-6 py-3'>
                   Price
                 </th>
-                <th scope='col' className='px-6 py-3'>
+                <th scope='col' className='flex-center px-6 py-3'>
                   Action
                 </th>
               </tr>
@@ -105,21 +121,30 @@ const Cars = () => {
                   <td className='px-6 py-4 font-semibold text-gray-900 '>
                     {car.car_class}
                   </td>
-                  <td className='px-6 py-4 font-semibold text-gray-900 '>
+                  <td className=' font-semibold text-gray-900 '>
                     {car.fuel_type}
                   </td>
                   <td className='px-6 py-4 font-semibold text-gray-900 '>
                     ${car.car_rent}
                   </td>
 
-                  <td className='px-6 py-4'>
-                    <CustomButton
-                      title='Edit'
-                      containerStyles='py-[16px] rounded-full bg-primary-blue '
-                      textStyles='text-white text-[14px] leading-[17px] font-bold'
-                      rightIcon='/right-arrow.svg'
-                      handleClick={() => handleEditClick(car)}
-                    />
+                  <td>
+                    <div className='flex-center gap-2'>
+                      <CustomButton
+                        title='Edit'
+                        containerStyles='py-[16px] rounded-full bg-primary-blue '
+                        textStyles='text-white text-[14px] leading-[17px] font-bold'
+                        rightIcon='/right-arrow.svg'
+                        handleClick={() => handleEditClick(car)}
+                      />
+                      <CustomButton
+                        title='Delete'
+                        containerStyles='py-[16px] rounded-full bg-danger'
+                        textStyles='text-white text-[14px] leading-[17px] font-bold'
+                        rightIcon='/admin-cars-delete.png'
+                        handleClick={() => handleDeleteClick(car._id)}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}
