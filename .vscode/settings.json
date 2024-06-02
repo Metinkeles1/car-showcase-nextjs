@@ -1,3 +1,9 @@
 {
-  "conventionalCommits.scopes": ["Cars", "Reservation", "admin", "Filter"]
+  "conventionalCommits.scopes": [
+    "Cars",
+    "Reservation",
+    "admin",
+    "Filter",
+    "footer"
+  ]
 }

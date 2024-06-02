@@ -8,15 +8,23 @@ const Footer = () => {
     <footer className='flex flex-col text-black-100 border-t border-gray-100 z-10'>
       <div className='flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10'>
         <div className='flex flex-col justify-start items-start gap-6'>
-          <Image
-            src='/logo.svg'
-            alt='logo'
-            width={118}
-            height={18}
-            className='object-contain'
-          />
+          <div className='flex flex-center'>
+            <div className='w-10 h-auto '>
+              <Image
+                src='/navbar-icon.png'
+                alt='Auto Select Logo'
+                width='0'
+                height='0'
+                sizes='100vw'
+                className='w-full h-auto'
+              />
+            </div>
+            <h1 className=' 2xl:text-[24px] sm:text-[16px] text-[16px] font-extrabold ml-2'>
+              Auto Select
+            </h1>
+          </div>
           <p className='text-base text-gray-700'>
-            Carhub 2023 rights reserved &copy;
+            Auto Select 2023 rights reserved &copy;
           </p>
         </div>
 
@@ -35,7 +43,7 @@ const Footer = () => {
       </div>
 
       <div className='flex justify-between items-center flex-wrap mt-10 border-t border-gray-100 sm:px-16 px-6 py-10'>
-        <p>@2023 CarHub. All rights reserved</p>
+        <p>@2023 Auto Select. All rights reserved</p>
 
         <div className='footer__copyrights-link'>
           <Link href='/' className='text-gray-500'>
