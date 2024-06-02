@@ -68,7 +68,7 @@ const Cars = () => {
           }}
         />
       </div>
-      <div className='max-h-[470px] overflow-y-auto'>
+      <div className='h-[470px] overflow-y-auto'>
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg mx-4'>
           <table className='w-full text-sm text-left rtl:text-right text-gray-500 '>
             <thead className='text-xs  uppercase text-white  bg-primary-blue '>

@@ -26,11 +26,11 @@ const Reservation = () => {
   return (
     <div className='w-full'>
       <div className='flex justify-between'>
-        <h1 className='flex text-4xl font-bold font-inter ml-6 mt-8 mb-4'>
+        <h1 className='flex text-4xl font-bold font-inter ml-6 mt-8 mb-6'>
           Reservation List
         </h1>
       </div>
-      <div className='max-h-[470px] overflow-y-auto'>
+      <div className='h-[470px] overflow-y-auto'>
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg mx-4'>
           <table className='w-full text-sm text-left rtl:text-right text-gray-500 '>
             <thead className='text-xs  uppercase text-white  bg-primary-blue '>
